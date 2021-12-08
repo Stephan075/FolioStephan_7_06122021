@@ -1,0 +1,70 @@
+.logo {
+  width: 100%;
+  display: flex;
+  margin-top: 42px;
+}
+
+.logo img {
+  width: 260px;
+  height: 93px;
+  margin: 0 auto;
+}
+
+/* search */
+.search__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search__bar i {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  background: #e7e7e7;
+}
+
+.search__bar input {
+  height: 69px;
+  width: 100%;
+  background: #e7e7e7;
+  outline: none;
+  text-overflow: ellipsis;
+}
+.search__bar input::placeholder {
+  color: #000;
+  opacity: 0.25;
+}
+
+/* tags */
+.tags {
+  padding: 10px;
+}
+.tags > i {
+  margin-left: 8px;
+}
+.search__tags > span i {
+  cursor: pointer;
+}
+.search__tags > span i:hover {
+  color: #000;
+}
+
+/* recipe */
+.card-title {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.recipe__info {
+  display: flex;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.ingredients {
+  margin-right: 30px;
+}
+
+.card-body {
+  background: #e7e7e7;
+}
