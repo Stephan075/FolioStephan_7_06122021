@@ -29,7 +29,7 @@
   <div class="search container mt-3">
     <!-- search__bar -->
     <div class="search__bar">
-      <input type="search" class="form-control"
+      <input type="search" id="search" class="form-control"
         placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
         aria-label="Rechercher un ingrédient">
       <i class="fa fa-search"></i>
@@ -45,12 +45,17 @@
   </div>
 
   <main class="results container my-4">
-    <div class="row">
+    <div class="row recipes">
       <article class="recipe_card col-lg-4">
         <img src=" ./src/images/placeholder.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Limonade de Coco <i class="far fa-clock"></i>10 min</h5>
-          <div class="recipe__info">
+          <div class="recipe__info--first">
+            <h5 class="card-title">${recipe.name}</h5>
+            <span class="recipe__iconAndTime"><i class="far fa-clock"></i>${recipe.time} min</span>
+          </div>
+
+
+          <div class="recipe__info--second">
             <div class="ingredients">
               <ul class="list-inline ingredient__list">
                 <li class="list-inline-item">
@@ -81,83 +86,12 @@
         </div>
       </article>
 
-      <article class="recipe_card col-lg-4">
-        <img src=" ./src/images/placeholder.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Limonade de Coco <i class="far fa-clock"></i>10 min</h5>
-          <div class="recipe__info">
-            <div class="ingredients">
-              <ul class="list-inline ingredient__list">
-                <li class="list-inline-item">
-                  Lait de coco: 400ml
-                </li>
-                <li class="list-inline-item">
-                  Jus de citron: 2
-                </li>
-                <li class="list-inline-item">
-                  Créme de coco: 4
-                </li>
-                <li class="list-inline-item">
-                  cuillères Sucre: 20g
-                </li>
-                <li class="list-inline-item">
-                  Glaçons: 2
-                </li>
-              </ul>
-            </div>
-
-            <div class="etape">
-              Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et
-              le
-              sucre. Mixer jusqu'à avoir la consistence désirée
-            </div>
-          </div>
-
-        </div>
-      </article>
-
-      <article class="recipe_card col-lg-4">
-        <img src=" ./src/images/placeholder.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Limonade de Coco <i class="far fa-clock"></i>10 min</h5>
-          <div class="recipe__info">
-            <div class="ingredients">
-              <ul class="list-inline ingredient__list">
-                <li class="list-inline-item">
-                  Lait de coco: 400ml
-                </li>
-                <li class="list-inline-item">
-                  Jus de citron: 2
-                </li>
-                <li class="list-inline-item">
-                  Créme de coco: 4
-                </li>
-                <li class="list-inline-item">
-                  cuillères Sucre: 20g
-                </li>
-                <li class="list-inline-item">
-                  Glaçons: 2
-                </li>
-              </ul>
-            </div>
-
-            <div class="etape">
-              Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et
-              le
-              sucre. Mixer jusqu'à avoir la consistence désirée
-            </div>
-          </div>
-
-        </div>
-      </article>
     </div>
-
-
   </main>
 
 
 
-
+  <script src="./src/javascript/main.js"></script>
   <!-- Js Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

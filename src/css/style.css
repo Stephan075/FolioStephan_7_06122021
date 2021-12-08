@@ -51,20 +51,42 @@
 }
 
 /* recipe */
-.card-title {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-.recipe__info {
-  display: flex;
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-.ingredients {
-  margin-right: 30px;
-}
 
 .card-body {
   background: #e7e7e7;
+  height: 190px;
+  overflow: hidden;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  max-width: 70%;
+}
+.card-title i {
+  margin-right: 5px;
+}
+
+.recipe__info--first {
+  width: 100%;
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.recipe__info--first i {
+  margin-right: 3px;
+}
+.recipe__info--second {
+  display: flex;
+  font-size: 12px;
+}
+
+.ingredients {
+  margin-right: 26px;
+}
+
+.ingredient__list {
+  margin-right: 0px;
 }
