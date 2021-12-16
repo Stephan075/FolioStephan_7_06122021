@@ -84,3 +84,26 @@ const itemIngredient = (ingredient) => {
 
   return ingredientList
 }
+
+// affichage tout recipes
+const displayAllIngredients = (recipes) => {
+  let ingredient = []
+
+  const allIngredients = recipes.map((el) => {
+    return el.ingredients.map((ingredient) => {
+      return ingredient.ingredient.toLowerCase()
+    })
+  })
+
+  // Supprimer les doublon
+  for (const valeur of allIngredients) {
+    for (const item of valeur) {
+      ingredient.push(item)
+    }
+  }
+
+  // Set pour supprimer les doublons en JavaScript avec la syntaxe spread de l’ECMAScript 6
+  var uniqueingredient = [...new Set(ingredient)]
+
+  return uniqueingredient
+}
