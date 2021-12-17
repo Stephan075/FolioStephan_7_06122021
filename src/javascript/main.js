@@ -12,6 +12,15 @@ const createRecipes = (recipes) => {
   })
 }
 
+const createDropdown = (recipes) => {
+  // On récupére les recette 1/1
+  // const DropdownElemDom = recipes.map((recipe) => {
+  //   dropdown(recipe)
+  // })
+
+  dropdown(recipes)
+}
+
 const filterRecipes = (recipes) => {
   // écouter l'évenement input
 
@@ -75,8 +84,11 @@ const initPage = async () => {
     createRecipes(recipes)
 
     filterRecipes(recipes)
+    createDropdown(recipes)
 
-    console.log(displayAllIngredients(recipes))
+    displayAllAppliance(recipes)
+
+    // console.log(displayAllIngredients(recipes))
   } catch (e) {
     console.log('erreur :', e)
   }

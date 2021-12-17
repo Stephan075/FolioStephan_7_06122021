@@ -107,3 +107,164 @@ const displayAllIngredients = (recipes) => {
 
   return uniqueingredient
 }
+
+const ingredientsList = (recipes) => {
+  const filterSelect = document.querySelector('.filter__custom-select')
+
+  // console.log(filterSelect)
+
+  const listAllIngredients = displayAllIngredients(recipes)
+  let arr = Object.values(listAllIngredients).sort()
+
+  const filterCustomMenuList = document.createElement('ul')
+
+  filterCustomMenuList.className = 'filter__custom-menu bg-primary'
+
+  filterSelect.appendChild(filterCustomMenuList)
+
+  for (const valeur of arr) {
+    const filterCustomOptionItem = document.createElement('li')
+    filterCustomOptionItem.className = 'filter__custom-option'
+    filterCustomOptionItem.textContent = valeur
+
+    filterCustomMenuList.appendChild(filterCustomOptionItem)
+  }
+}
+
+// liste appareil
+const displayAllAppliance = (recipes) => {
+  let appliance = []
+
+  const allAppliances = recipes.map((el) => {
+    return el.appliance.toLowerCase()
+  })
+
+  for (const valeur of allAppliances) {
+    appliance.push(valeur)
+  }
+
+  // Set pour supprimer les doublons en JavaScript avec la syntaxe spread de l’ECMAScript 6
+  let uniqueAppliance = [...new Set(appliance)]
+
+  // console.log(uniqueAppliance)
+
+  return uniqueAppliance
+}
+
+const applianceList = (recipes) => {
+  const filterSelect = document.querySelector('.filter__custom-select')
+
+  // console.log(filterSelect)
+
+  const listAllIngredients = displayAllAppliance(recipes).sort()
+
+  const filterCustomMenuList = document.createElement('ul')
+
+  filterCustomMenuList.className = 'filter__custom-menu bg-primary'
+
+  filterSelect.appendChild(filterCustomMenuList)
+
+  for (const valeur of listAllIngredients) {
+    const filterCustomOptionItem = document.createElement('li')
+    filterCustomOptionItem.className = 'filter__custom-option'
+    filterCustomOptionItem.textContent = valeur
+
+    filterCustomMenuList.appendChild(filterCustomOptionItem)
+  }
+}
+
+const dropdown = (recipe) => {
+  const dropdownName = {
+    ing: 'Ingredients',
+    app: 'Appareils',
+    uss: 'Ustensiles',
+  }
+
+  const arr = Object.values(dropdownName)
+
+  // console.log(arr)
+
+  // liste dropName
+  const drop = arr.map((item) => {
+    console.log(`item ${item}`)
+    const filterCustomSelect = document.createElement('div')
+    filterCustomSelect.className = 'filter__custom-select'
+
+    const filterSelect = document.createElement('input')
+    filterSelect.className = 'filter__select bg-primary'
+    filterSelect.addEventListener('click', (e) => {
+      // console.log(e)
+    })
+
+    filterSelect.setAttribute('placeholder', item)
+    filterSelect.setAttribute('type', 'text')
+    filterSelect.setAttribute('aria-label', `Recherche par ${item}`)
+    filterSelect.setAttribute('id', `input${item}`)
+
+    filterCustomSelect.appendChild(filterSelect)
+
+    const filterSpanCustomArrow = document.createElement('span')
+    filterSpanCustomArrow.className = 'filter__custom-arrow'
+
+    filterCustomSelect.appendChild(filterSpanCustomArrow)
+
+    document.querySelector('.dropdowns').appendChild(filterCustomSelect)
+  })
+
+  // const input = document.querySelectorAll('.filter__select')
+
+  document.querySelectorAll('.filter__select').forEach((item) => {
+    item.addEventListener('click', (e) => {
+      item.classList.toggle('filter__select--toggle')
+
+      if (item.placeholder === 'Ingredients') {
+        ingredientsList(recipe)
+
+        console.log('test')
+      } else if (item.placeholder === 'Appareils') {
+        applianceList(recipe)
+
+        console.log('test2')
+      } else {
+        console.log('test3')
+      }
+    })
+  })
+
+  /*
+  const filterCustomSelect = document.createElement('div')
+  filterCustomSelect.className = 'filter__custom-select'
+
+  const filterSelect = document.createElement('input')
+  filterSelect.className = 'filter__select bg-primary'
+
+  filterSelect.setAttribute('placeholder', dropdownName.ing)
+  filterSelect.setAttribute('type', 'text')
+
+  filterCustomSelect.appendChild(filterSelect)
+
+  const filterSpanCustomArrow = document.createElement('span')
+  filterSpanCustomArrow.className = 'filter__custom-arrow'
+
+  filterCustomSelect.appendChild(filterSpanCustomArrow)
+
+  document.querySelector('.dropdowns').appendChild(filterCustomSelect)
+
+  */
+
+  // input.addEventListener('click', (e) => {
+  //   console.log('click')
+  // })
+
+  // filterSelect.addEventListener('click', (e) => {
+  //   let input = document.querySelector('.filter__select')
+
+  //   input.classList.toggle('filter__select--toggle')
+
+  //   console.log('click')
+  // })
+
+  // ingredientsList(recipe, filterCustomSelect)
+  // ingredientsList(recipe)
+  // console.log(displayAllAppliance(recipe))
+}

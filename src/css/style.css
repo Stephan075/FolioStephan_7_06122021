@@ -107,3 +107,103 @@
 
   /* text-align: end; */
 }
+
+/*  */
+.dropdowns {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0 2rem 0;
+}
+
+.filter__custom-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.filter__select {
+  color: white;
+  border-radius: 5px;
+  /* width: 50rem; */
+  width: 12rem;
+  height: 69px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  border: none;
+  text-align: left;
+  padding-left: 20px;
+  outline: none;
+
+  transition: width 2s, height 2s, width 2s;
+  /* ou alors, exactement équivalent à : */
+  transition: all 0.3s;
+}
+
+.filter__select--toggle {
+  width: 50rem;
+}
+
+.filter__select:focus {
+  border: none;
+}
+.filter__select::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.filter__custom-arrow {
+  transition: transform 300ms;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 1px;
+  right: 1px;
+  border-radius: 5px;
+  height: 95%;
+  width: 40px;
+  cursor: pointer;
+  margin: auto;
+}
+.filter__custom-arrow::before {
+  content: url(../images/arrow-bottom.svg);
+}
+
+.filter__custom-menu {
+  position: absolute;
+  flex-wrap: wrap;
+  top: 63px;
+  z-index: 12;
+  color: white;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0 10px;
+  border-radius: 0 0 5px 5px;
+  letter-spacing: 1px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  height: fit-content;
+  padding: 0.5rem;
+}
+
+.filter__custom-menu {
+  display: flex;
+  flex-direction: row;
+  /* display: none; */
+}
+.filter__custom-option {
+  font-size: 1.21rem;
+  cursor: pointer;
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 33%;
+  overflow: hidden;
+  padding: 0.5rem 4rem 0.5rem 1rem;
+}
+
+.filter__custom-option:hover {
+  background: #639bf0;
+}
