@@ -1,3 +1,4 @@
+let ingredientShow = false
 // Un menu
 const card = (recipe) => {
   const recipeDom = document.createElement('article')
@@ -86,34 +87,13 @@ const itemIngredient = (ingredient) => {
 }
 
 // affichage tout recipes
-const displayAllIngredients = (recipes) => {
-  let ingredient = []
-
-  const allIngredients = recipes.map((el) => {
-    return el.ingredients.map((ingredient) => {
-      return ingredient.ingredient.toLowerCase()
-    })
-  })
-
-  // Supprimer les doublon
-  for (const valeur of allIngredients) {
-    for (const item of valeur) {
-      ingredient.push(item)
-    }
-  }
-
-  // Set pour supprimer les doublons en JavaScript avec la syntaxe spread de l’ECMAScript 6
-  var uniqueingredient = [...new Set(ingredient)]
-
-  return uniqueingredient
-}
 
 const ingredientsList = (recipes) => {
   const filterSelect = document.querySelector('.filter__custom-select')
 
   // console.log(filterSelect)
 
-  const listAllIngredients = displayAllIngredients(recipes)
+  const listAllIngredients = recipes
   let arr = Object.values(listAllIngredients).sort()
 
   const filterCustomMenuList = document.createElement('ul')
@@ -127,36 +107,19 @@ const ingredientsList = (recipes) => {
     filterCustomOptionItem.className = 'filter__custom-option'
     filterCustomOptionItem.textContent = valeur
 
+    // afficher les tags
+    filterCustomOptionItem.addEventListener('click', displayTag)
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
 }
 
-// liste appareil
-const displayAllAppliance = (recipes) => {
-  let appliance = []
-
-  const allAppliances = recipes.map((el) => {
-    return el.appliance.toLowerCase()
-  })
-
-  for (const valeur of allAppliances) {
-    appliance.push(valeur)
-  }
-
-  // Set pour supprimer les doublons en JavaScript avec la syntaxe spread de l’ECMAScript 6
-  let uniqueAppliance = [...new Set(appliance)]
-
-  // console.log(uniqueAppliance)
-
-  return uniqueAppliance
-}
-
 const applianceList = (recipes) => {
-  const filterSelect = document.querySelector('.filter__custom-select')
+  // selectionner le bon elem du DOM
+  const filterSelect = document.querySelectorAll('.filter__custom-select')[1]
 
   // console.log(filterSelect)
 
-  const listAllIngredients = displayAllAppliance(recipes).sort()
+  const listAllIngredients = getAllAppliance(recipes).sort()
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -218,9 +181,16 @@ const dropdown = (recipe) => {
       item.classList.toggle('filter__select--toggle')
 
       if (item.placeholder === 'Ingredients') {
-        ingredientsList(recipe)
+        if (!ingredientShow) {
+          ingredientsList(getAllIngredients(recipe))
+          ingredientShow = true
+        } else {
+          // supprimer le toggle
+          document.querySelector('.filter__custom-menu').remove()
+          ingredientShow = false
+        }
 
-        console.log('test')
+        console.log('err')
       } else if (item.placeholder === 'Appareils') {
         applianceList(recipe)
 
@@ -267,4 +237,8 @@ const dropdown = (recipe) => {
   // ingredientsList(recipe, filterCustomSelect)
   // ingredientsList(recipe)
   // console.log(displayAllAppliance(recipe))
+}
+
+const displayTag = (e) => {
+  console.log(e.target.textContent)
 }

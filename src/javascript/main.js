@@ -1,7 +1,6 @@
 // récupérer notre élement
 const searchInput = document.querySelector('#search')
 const recipesSection = document.querySelector('.recipes')
-
 // console.log(recipes)
 
 // ici on crée le DOM pour afficher les recettes
@@ -74,6 +73,39 @@ const filterRecipes = (recipes) => {
   })
 }
 
+const filterSearch = (recipes) => {
+  const filterInputIngredient = document.querySelector('#inputIngredients')
+  // écouter l'évenement input
+  // return console.log(filterInputIngredient)
+  filterInputIngredient.addEventListener('keyup', (e) => {
+    const value = e.target.value.toLowerCase()
+    // console.log(value)
+
+    if (value.length > 2) {
+      // Recherche par ingredient
+      if (!ingredientShow) {
+        document.querySelector('.filter__custom-menu').remove()
+        ingredientsList(
+          getAllIngredients(recipes)
+            .map((el) => {
+              console.log(el)
+              return el.includes(e.target.value) && el
+            })
+            // retir tout les false
+            .filter((el) => {
+              return el
+            })
+        )
+        ingredientShow = true
+      } else {
+        // supprimer le toggle
+        // document.querySelector('.filter__custom-menu').remove()
+        ingredientShow = false
+      }
+    }
+  })
+}
+
 // init
 const initPage = async () => {
   try {
@@ -85,8 +117,8 @@ const initPage = async () => {
 
     filterRecipes(recipes)
     createDropdown(recipes)
-
-    displayAllAppliance(recipes)
+    getAllAppliance(recipes)
+    filterSearch(recipes)
 
     // console.log(displayAllIngredients(recipes))
   } catch (e) {
