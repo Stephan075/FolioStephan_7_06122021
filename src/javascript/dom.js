@@ -1,4 +1,6 @@
 let ingredientShow = false
+let applianceShow = false
+let ustensilShow = false
 // Un menu
 const card = (recipe) => {
   const recipeDom = document.createElement('article')
@@ -119,7 +121,7 @@ const applianceList = (recipes) => {
 
   // console.log(filterSelect)
 
-  const listAllIngredients = getAllAppliance(recipes).sort()
+  const listAllAppliance = getAllAppliance(recipes).sort()
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -127,7 +129,30 @@ const applianceList = (recipes) => {
 
   filterSelect.appendChild(filterCustomMenuList)
 
-  for (const valeur of listAllIngredients) {
+  for (const valeur of listAllAppliance) {
+    const filterCustomOptionItem = document.createElement('li')
+    filterCustomOptionItem.className = 'filter__custom-option'
+    filterCustomOptionItem.textContent = valeur
+
+    filterCustomMenuList.appendChild(filterCustomOptionItem)
+  }
+}
+
+const ustensilList = (recipes) => {
+  // selectionner le bon elem du DOM
+  const filterSelect = document.querySelectorAll('.filter__custom-select')[2]
+
+  // console.log(filterSelect)
+
+  const listAllUstensils = getAllUstensils(recipes).sort()
+
+  const filterCustomMenuList = document.createElement('ul')
+
+  filterCustomMenuList.className = 'filter__custom-menu bg-primary'
+
+  filterSelect.appendChild(filterCustomMenuList)
+
+  for (const valeur of listAllUstensils) {
     const filterCustomOptionItem = document.createElement('li')
     filterCustomOptionItem.className = 'filter__custom-option'
     filterCustomOptionItem.textContent = valeur
@@ -179,7 +204,6 @@ const dropdown = (recipe) => {
   document.querySelectorAll('.filter__select').forEach((item) => {
     item.addEventListener('click', (e) => {
       item.classList.toggle('filter__select--toggle')
-
       if (item.placeholder === 'Ingredients') {
         if (!ingredientShow) {
           ingredientsList(getAllIngredients(recipe))
@@ -189,13 +213,23 @@ const dropdown = (recipe) => {
           document.querySelector('.filter__custom-menu').remove()
           ingredientShow = false
         }
-
-        console.log('err')
       } else if (item.placeholder === 'Appareils') {
-        applianceList(recipe)
-
-        console.log('test2')
+        if (!applianceShow) {
+          applianceList(recipe)
+          applianceShow = true
+        } else {
+          document.querySelector('.filter__custom-menu').remove()
+          applianceShow = false
+        }
       } else {
+        if (!ustensilShow) {
+          ustensilList(recipe)
+          ustensilShow = true
+        } else {
+          ustensilShow = false
+          document.querySelector('.filter__custom-menu').remove()
+        }
+
         console.log('test3')
       }
     })

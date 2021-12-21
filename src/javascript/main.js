@@ -119,6 +119,7 @@ const initPage = async () => {
     createDropdown(recipes)
     getAllAppliance(recipes)
     filterSearch(recipes)
+    getAllUstensils(recipes)
 
     // console.log(displayAllIngredients(recipes))
   } catch (e) {

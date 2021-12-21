@@ -39,3 +39,31 @@ const getAllAppliance = (recipes) => {
 
   return uniqueAppliance
 }
+
+// liste appareil
+const getAllUstensils = (recipes) => {
+  let ustensil = []
+  let ingredient = []
+
+  const allUstensils = recipes.map((el) => {
+    return el.ustensils.map((ustensil) => {
+      // console.log(ustensil)
+      return ustensil.toLowerCase()
+    })
+  })
+
+  // Supprimer les doublon
+  for (const valeur of allUstensils) {
+    for (const item of valeur) {
+      ustensil.push(item)
+    }
+  }
+
+  // console.log(ustensil)
+
+  let uniqueUstensil = [...new Set(ustensil)]
+
+  // console.log(uniqueUstensil)
+
+  return uniqueUstensil
+}
