@@ -69,6 +69,9 @@ const filterRecipes = (recipes) => {
           return recipe.ustensils.includes(value)
         })
       )
+    } else {
+      document.querySelector('.recipes').textContent =
+        'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
     }
   })
 }

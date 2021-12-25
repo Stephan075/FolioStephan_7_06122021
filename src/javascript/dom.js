@@ -125,7 +125,7 @@ const applianceList = (recipes) => {
 
   const filterCustomMenuList = document.createElement('ul')
 
-  filterCustomMenuList.className = 'filter__custom-menu bg-primary'
+  filterCustomMenuList.className = 'filter__custom-menu bg-success'
 
   filterSelect.appendChild(filterCustomMenuList)
 
@@ -134,6 +134,8 @@ const applianceList = (recipes) => {
     filterCustomOptionItem.className = 'filter__custom-option'
     filterCustomOptionItem.textContent = valeur
 
+    // afficher les tags
+    filterCustomOptionItem.addEventListener('click', displayTag)
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
 }
@@ -148,7 +150,7 @@ const ustensilList = (recipes) => {
 
   const filterCustomMenuList = document.createElement('ul')
 
-  filterCustomMenuList.className = 'filter__custom-menu bg-primary'
+  filterCustomMenuList.className = 'filter__custom-menu bg-danger'
 
   filterSelect.appendChild(filterCustomMenuList)
 
@@ -157,15 +159,17 @@ const ustensilList = (recipes) => {
     filterCustomOptionItem.className = 'filter__custom-option'
     filterCustomOptionItem.textContent = valeur
 
+    // afficher les tags
+    filterCustomOptionItem.addEventListener('click', displayTag)
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
 }
 
 const dropdown = (recipe) => {
   const dropdownName = {
-    ing: 'Ingredients',
-    app: 'Appareils',
-    uss: 'Ustensiles',
+    ing: { name: 'Ingredients', background: 'bg-primary' },
+    app: { name: 'Appareils', background: 'bg-success' },
+    uss: { name: 'Ustensiles', background: 'bg-danger' },
   }
 
   const arr = Object.values(dropdownName)
@@ -174,20 +178,19 @@ const dropdown = (recipe) => {
 
   // liste dropName
   const drop = arr.map((item) => {
-    console.log(`item ${item}`)
     const filterCustomSelect = document.createElement('div')
     filterCustomSelect.className = 'filter__custom-select'
 
     const filterSelect = document.createElement('input')
-    filterSelect.className = 'filter__select bg-primary'
+    filterSelect.className = `filter__select ${item.background}`
     filterSelect.addEventListener('click', (e) => {
       // console.log(e)
     })
 
-    filterSelect.setAttribute('placeholder', item)
+    filterSelect.setAttribute('placeholder', item.name)
     filterSelect.setAttribute('type', 'text')
-    filterSelect.setAttribute('aria-label', `Recherche par ${item}`)
-    filterSelect.setAttribute('id', `input${item}`)
+    filterSelect.setAttribute('aria-label', `Recherche par ${item.name}`)
+    filterSelect.setAttribute('id', `input${item.name}`)
 
     filterCustomSelect.appendChild(filterSelect)
 
@@ -274,5 +277,35 @@ const dropdown = (recipe) => {
 }
 
 const displayTag = (e) => {
+  let tagDom = document.createElement('span')
+
+  tagDom.className = 'badge tags bg-primary'
+  tagDom.textContent = e.target.textContent
+
+  let icon = document.createElement('i')
+  icon.className = 'far fa-times-circle'
+  icon.setAttribute('id', 'close')
+
+  tagDom.appendChild(icon)
+
+  document.querySelector('.search__tags').appendChild(tagDom)
+
   console.log(e.target.textContent)
+
+  removeTag()
+}
+
+// Supprimer les tags
+const removeTag = () => {
+  const listTags = document.querySelectorAll('.tags')
+
+  if (listTags !== null) {
+    for (let i = 0; i < listTags.length; i++) {
+      const closeTag = document.querySelectorAll('#close')
+      // le TAG!
+      closeTag[i].addEventListener('click', () => {
+        listTags[i].remove()
+      })
+    }
+  }
 }

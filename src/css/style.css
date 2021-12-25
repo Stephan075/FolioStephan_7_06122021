@@ -39,6 +39,7 @@
 /* tags */
 .tags {
   padding: 10px;
+  margin: 0 10px 10px 0;
 }
 .tags > i {
   margin-left: 8px;
