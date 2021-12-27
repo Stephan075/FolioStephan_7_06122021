@@ -1,6 +1,8 @@
 let ingredientShow = false
 let applianceShow = false
 let ustensilShow = false
+let listTags = []
+
 // Un menu
 const card = (recipe) => {
   const recipeDom = document.createElement('article')
@@ -290,7 +292,8 @@ const displayTag = (e) => {
 
   document.querySelector('.search__tags').appendChild(tagDom)
 
-  console.log(e.target.textContent)
+  // console.log(e.target.textContent)
+  listTags.push(e.target.textContent)
 
   removeTag()
 }
