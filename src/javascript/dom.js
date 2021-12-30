@@ -86,7 +86,7 @@ const itemIngredient = (ingredient) => {
     ' ' +
     (ingredient.unit || ' ')
 
-  console.log(ingredient)
+  // console.log(ingredient)
 
   return ingredientList
 }
@@ -97,8 +97,8 @@ const ingredientsList = (recipes) => {
   // console.log(filterSelect)
 
   const listAllIngredients = recipes
-  console.log(recipes)
-  console.log('liste des ingredient restant :', listAllIngredients)
+  // console.log(recipes)
+  // console.log('liste des ingredient restant :', listAllIngredients)
   let arr = Object.values(listAllIngredients).sort()
 
   const filterCustomMenuList = document.createElement('ul')
@@ -132,7 +132,7 @@ const applianceList = (recipes) => {
   filterSelect.appendChild(filterCustomMenuList)
 
   for (const valeur of listAllAppliance) {
-    console.log('valeur : ', valeur)
+    // console.log('valeur : ', valeur)
     const filterCustomOptionItem = document.createElement('li')
     filterCustomOptionItem.className = 'filter__custom-option'
     filterCustomOptionItem.textContent = valeur
@@ -235,48 +235,9 @@ const dropdown = (recipe) => {
           ustensilShow = false
           document.querySelector('.filter__custom-menu').remove()
         }
-
-        console.log('test3')
       }
     })
   })
-
-  /*
-  const filterCustomSelect = document.createElement('div')
-  filterCustomSelect.className = 'filter__custom-select'
-
-  const filterSelect = document.createElement('input')
-  filterSelect.className = 'filter__select bg-primary'
-
-  filterSelect.setAttribute('placeholder', dropdownName.ing)
-  filterSelect.setAttribute('type', 'text')
-
-  filterCustomSelect.appendChild(filterSelect)
-
-  const filterSpanCustomArrow = document.createElement('span')
-  filterSpanCustomArrow.className = 'filter__custom-arrow'
-
-  filterCustomSelect.appendChild(filterSpanCustomArrow)
-
-  document.querySelector('.dropdowns').appendChild(filterCustomSelect)
-
-  */
-
-  // input.addEventListener('click', (e) => {
-  //   console.log('click')
-  // })
-
-  // filterSelect.addEventListener('click', (e) => {
-  //   let input = document.querySelector('.filter__select')
-
-  //   input.classList.toggle('filter__select--toggle')
-
-  //   console.log('click')
-  // })
-
-  // ingredientsList(recipe, filterCustomSelect)
-  // ingredientsList(recipe)
-  // console.log(displayAllAppliance(recipe))
 }
 
 // création d'un tag
