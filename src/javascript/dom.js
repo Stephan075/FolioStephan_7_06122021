@@ -3,7 +3,7 @@ let applianceShow = false
 let ustensilShow = false
 let listTags = []
 
-// Un menu
+// créer une seul card
 const card = (recipe) => {
   const recipeDom = document.createElement('article')
   recipeDom.className = 'recipe_card col-lg-4 mb-4'
@@ -73,6 +73,7 @@ const card = (recipe) => {
   document.querySelector('.recipes').appendChild(recipeDom)
 }
 
+// liste d'un indredient avec la quantité et l'unité
 const itemIngredient = (ingredient) => {
   let ingredientList = document.createElement('li')
   ingredientList.className = 'list-inline-item'
@@ -85,19 +86,19 @@ const itemIngredient = (ingredient) => {
     ' ' +
     (ingredient.unit || ' ')
 
-  // console.log(ingredient)
+  console.log(ingredient)
 
   return ingredientList
 }
 
-// affichage tout recipes
-
+// affichage toutes les ingredients
 const ingredientsList = (recipes) => {
-  const filterSelect = document.querySelector('.filter__custom-select')
-
+  const filterSelect = document.querySelectorAll('.filter__custom-select')[0]
   // console.log(filterSelect)
 
   const listAllIngredients = recipes
+  console.log(recipes)
+  console.log('liste des ingredient restant :', listAllIngredients)
   let arr = Object.values(listAllIngredients).sort()
 
   const filterCustomMenuList = document.createElement('ul')
@@ -117,13 +118,12 @@ const ingredientsList = (recipes) => {
   }
 }
 
+// la liste des Appareils
 const applianceList = (recipes) => {
   // selectionner le bon elem du DOM
   const filterSelect = document.querySelectorAll('.filter__custom-select')[1]
 
-  // console.log(filterSelect)
-
-  const listAllAppliance = getAllAppliance(recipes).sort()
+  const listAllAppliance = recipes
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -132,6 +132,7 @@ const applianceList = (recipes) => {
   filterSelect.appendChild(filterCustomMenuList)
 
   for (const valeur of listAllAppliance) {
+    console.log('valeur : ', valeur)
     const filterCustomOptionItem = document.createElement('li')
     filterCustomOptionItem.className = 'filter__custom-option'
     filterCustomOptionItem.textContent = valeur
@@ -142,13 +143,12 @@ const applianceList = (recipes) => {
   }
 }
 
+// la liste des ustensils
 const ustensilList = (recipes) => {
   // selectionner le bon elem du DOM
   const filterSelect = document.querySelectorAll('.filter__custom-select')[2]
 
-  // console.log(filterSelect)
-
-  const listAllUstensils = getAllUstensils(recipes).sort()
+  const listAllUstensils = recipes
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -167,6 +167,7 @@ const ustensilList = (recipes) => {
   }
 }
 
+// Création du dropdown
 const dropdown = (recipe) => {
   const dropdownName = {
     ing: { name: 'Ingredients', background: 'bg-primary' },
@@ -220,7 +221,7 @@ const dropdown = (recipe) => {
         }
       } else if (item.placeholder === 'Appareils') {
         if (!applianceShow) {
-          applianceList(recipe)
+          applianceList(getAllAppliance(recipe))
           applianceShow = true
         } else {
           document.querySelector('.filter__custom-menu').remove()
@@ -228,7 +229,7 @@ const dropdown = (recipe) => {
         }
       } else {
         if (!ustensilShow) {
-          ustensilList(recipe)
+          ustensilList(getAllUstensils(recipe))
           ustensilShow = true
         } else {
           ustensilShow = false
@@ -278,6 +279,7 @@ const dropdown = (recipe) => {
   // console.log(displayAllAppliance(recipe))
 }
 
+// création d'un tag
 const displayTag = (e) => {
   let tagDom = document.createElement('span')
 
@@ -294,11 +296,12 @@ const displayTag = (e) => {
 
   // console.log(e.target.textContent)
   listTags.push(e.target.textContent)
+  // console.log(listTags)
 
   removeTag()
 }
 
-// Supprimer les tags
+// Supprimer un tag au click
 const removeTag = () => {
   const listTags = document.querySelectorAll('.tags')
 

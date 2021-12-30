@@ -25,7 +25,8 @@ const getAllAppliance = (recipes) => {
   let appliance = []
 
   const allAppliances = recipes.map((el) => {
-    return el.appliance.toLowerCase()
+    // si le value est indéfini ou nul, il n'appellera pas toLowerCase()
+    return el.appliance?.toLowerCase()
   })
 
   for (const valeur of allAppliances) {
@@ -43,12 +44,10 @@ const getAllAppliance = (recipes) => {
 // liste appareil
 const getAllUstensils = (recipes) => {
   let ustensil = []
-  let ingredient = []
 
   const allUstensils = recipes.map((el) => {
     return el.ustensils.map((ustensil) => {
-      // console.log(ustensil)
-      return ustensil.toLowerCase()
+      return ustensil?.toLowerCase()
     })
   })
 

@@ -1,31 +1,22 @@
 // récupérer notre élement
 const searchInput = document.querySelector('#search')
 const recipesSection = document.querySelector('.recipes')
-// console.log(recipes)
 
 // ici on crée le DOM pour afficher les recettes
 const createRecipes = (recipes) => {
   // On récupére les recette 1/1
-  const recipeElemDom = recipes.map((recipe) => {
+  recipes.map((recipe) => {
     card(recipe)
   })
 }
 
-const createDropdown = (recipes) => {
-  // On récupére les recette 1/1
-  // const DropdownElemDom = recipes.map((recipe) => {
-  //   dropdown(recipe)
-  // })
-
-  dropdown(recipes)
-}
-
+// géré les recherche de l'utilisateur sur le searchBar principale
 const filterRecipes = (recipes, e) => {
   // écouter l'évenement input
 
-  console.log(recipes)
+  // console.log(recipes)
   const value = e.target.value.toLowerCase()
-  console.log(listTags)
+  // console.log(listTags)
 
   if (value.length > 2) {
     document.querySelector('.recipes').textContent = ''
@@ -75,23 +66,28 @@ const filterRecipes = (recipes, e) => {
   }
 }
 
+const createDropdown = (recipes) => {
+  dropdown(recipes)
+}
+
+// filter les élement au moment de la recherche du dropdown
 const filterSearch = (recipes, e) => {
+  // filter recherche sur le dropdown ingredients
   const filterInputIngredient = document.querySelector('#inputIngredients')
-  // écouter l'évenement input
   // return console.log(filterInputIngredient)
   filterInputIngredient.addEventListener('keyup', (e) => {
     const value = e.target.value.toLowerCase()
     // console.log(value)
 
-    if (value.length > 2) {
+    if (value.length > 1) {
       // Recherche par ingredient
       if (!ingredientShow) {
         document.querySelector('.filter__custom-menu').remove()
         ingredientsList(
           getAllIngredients(recipes)
             .map((el) => {
-              console.log(el)
-              return el.includes(e.target.value) && el
+              // console.log(el.includes(value))
+              return el.includes(value) && el
             })
             // retir tout les false
             .filter((el) => {
@@ -100,14 +96,71 @@ const filterSearch = (recipes, e) => {
         )
         ingredientShow = true
       } else {
-        // supprimer le toggle
-        // document.querySelector('.filter__custom-menu').remove()
         ingredientShow = false
+      }
+    }
+  })
+
+  // filter recherche sur le dropdown appareils
+  const filterInputAppareils = document.querySelector('#inputAppareils')
+  // return console.log(filterInputIngredient)
+  filterInputAppareils.addEventListener('keyup', (e) => {
+    const value = e.target.value.toLowerCase()
+    // console.log(value)
+
+    if (value.length > 1) {
+      // console.log(document.querySelector('.filter__custom-menu'))
+      // Recherche par ingredient
+      if (!applianceShow) {
+        document.querySelector('.filter__custom-menu').remove()
+        applianceList(
+          getAllAppliance(recipes)
+            .map((el) => {
+              return el.includes(value) && el
+            })
+            // retir tout les false
+            .filter((el) => {
+              return el
+            })
+        )
+        applianceShow = true
+      } else {
+        applianceShow = false
+      }
+    }
+  })
+
+  // filter recherche sur le dropdown Ustensiles
+  const filterInputUstensiles = document.querySelector('#inputUstensiles')
+  // return console.log(filterInputIngredient)
+  filterInputUstensiles.addEventListener('keyup', (e) => {
+    const value = e.target.value.toLowerCase()
+    // console.log(value)
+
+    if (value.length > 1) {
+      // console.log(document.querySelector('.filter__custom-menu'))
+      // Recherche par ingredient
+      if (!ustensilShow) {
+        document.querySelector('.filter__custom-menu').remove()
+        ustensilList(
+          getAllUstensils(recipes)
+            .map((el) => {
+              return el.includes(value) && el
+            })
+            // retir tout les false
+            .filter((el) => {
+              return el
+            })
+        )
+        ustensilShow = true
+      } else {
+        ustensilShow = false
       }
     }
   })
 }
 
+// On recherche en fonction des tags choisis par l'utilisateurs
 const rechercheEnFonctionDesTags = (recipes, e) => {
   let tag = new Set()
 
@@ -201,9 +254,9 @@ const initPage = async () => {
     })
 
     createDropdown(recipes)
-    getAllAppliance(recipes)
+    // getAllAppliance(recipes)
     filterSearch(recipes)
-    getAllUstensils(recipes)
+    // getAllUstensils(recipes)
 
     // console.log(displayAllIngredients(recipes))
   } catch (e) {
