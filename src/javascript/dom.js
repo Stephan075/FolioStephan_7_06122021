@@ -104,6 +104,7 @@ const ingredientsList = (recipes) => {
   const filterCustomMenuList = document.createElement('ul')
 
   filterCustomMenuList.className = 'filter__custom-menu bg-primary'
+  filterCustomMenuList.setAttribute('id', `ingredientsList`)
 
   filterSelect.appendChild(filterCustomMenuList)
 
@@ -114,6 +115,7 @@ const ingredientsList = (recipes) => {
 
     // afficher les tags
     filterCustomOptionItem.addEventListener('click', displayTag)
+
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
 }
@@ -139,6 +141,7 @@ const applianceList = (recipes) => {
 
     // afficher les tags
     filterCustomOptionItem.addEventListener('click', displayTag)
+
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
 }
@@ -163,6 +166,7 @@ const ustensilList = (recipes) => {
 
     // afficher les tags
     filterCustomOptionItem.addEventListener('click', displayTag)
+
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
 }
@@ -257,21 +261,25 @@ const displayTag = (e) => {
 
   // console.log(e.target.textContent)
   listTags.push(e.target.textContent)
+
   // console.log(listTags)
 
-  removeTag()
+  removeTag(e)
 }
 
 // Supprimer un tag au click
-const removeTag = () => {
-  const listTags = document.querySelectorAll('.tags')
+const removeTag = (e) => {
+  const listTagsSelect = document.querySelectorAll('.tags')
 
-  if (listTags !== null) {
-    for (let i = 0; i < listTags.length; i++) {
+  if (listTagsSelect !== null) {
+    for (let i = 0; i < listTagsSelect.length; i++) {
       const closeTag = document.querySelectorAll('#close')
+      console.log(`A l’index ${i} nous avons ${listTags[i]}`)
       // le TAG!
       closeTag[i].addEventListener('click', () => {
-        listTags[i].remove()
+        listTags.splice(i, 1)
+        listTagsSelect[i].remove()
+        console.log(listTags)
       })
     }
   }

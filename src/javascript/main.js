@@ -74,6 +74,7 @@ const createDropdown = (recipes) => {
 const filterSearch = (recipes, e) => {
   // filter recherche sur le dropdown ingredients
   const filterInputIngredient = document.querySelector('#inputIngredients')
+
   // return console.log(filterInputIngredient)
   filterInputIngredient.addEventListener('keyup', (e) => {
     const value = e.target.value.toLowerCase()
@@ -157,6 +158,62 @@ const filterSearch = (recipes, e) => {
         ustensilShow = false
       }
     }
+  })
+}
+
+const cardEnFonctionDesTagsSelectionner = (recipes) => {
+  const filterCustomOptionlist = document.querySelectorAll('.filter__select')
+  filterCustomOptionlist.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      const filterCustomOptionItem = document.querySelectorAll(
+        '.filter__custom-option'
+      )
+      for (const curr of filterCustomOptionItem) {
+        curr.addEventListener('click', (e) => {
+          // console.log(e.target.textContent)
+          if (listTags.includes(e.target.textContent)) {
+            document.querySelector('.recipes').textContent = ''
+            for (let current of listTags) {
+              // console.log('curr :', current)
+
+              // recherche par ingredients
+              createRecipes(
+                recipes.filter((recipe) => {
+                  const allIngredient = recipe.ingredients.map((el) => {
+                    // console.log('el : ' + el.ingredient)
+                    return el.ingredient
+                  })
+
+                  return (
+                    allIngredient.filter((item) => {
+                      // console.log(item.toLowerCase().includes(value))
+
+                      return item.toLowerCase().includes(current)
+                    }).length > 0
+                  )
+                })
+              )
+
+              // recherche par Appareils
+              createRecipes(
+                recipes.filter((recipe) => {
+                  return recipe.appliance.toLowerCase().includes(current)
+                })
+              )
+
+              // Recherche par ustensils NOP
+              createRecipes(
+                recipes.filter((recipe) => {
+                  return recipe.ustensils.includes(current)
+                })
+              )
+
+              // console.log(listTags)
+            }
+          }
+        })
+      }
+    })
   })
 }
 
@@ -259,6 +316,7 @@ const initPage = async () => {
     // getAllUstensils(recipes)
 
     // console.log(displayAllIngredients(recipes))
+    cardEnFonctionDesTagsSelectionner(recipes)
   } catch (e) {
     console.log('erreur :', e)
   }
