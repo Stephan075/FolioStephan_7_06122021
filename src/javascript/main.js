@@ -20,6 +20,27 @@ const filterRecipes = (recipes, e) => {
 
   if (value.length > 2) {
     document.querySelector('.recipes').textContent = ''
+    let err =
+      recipes.filter((recipe) => {
+        return recipe.name.toLowerCase().includes(value)
+      }).length > 0 ||
+      recipes.filter((recipe) => {
+        return recipe.description.toLowerCase().includes(value)
+      }).length > 0 ||
+      recipes.filter((recipe) => {
+        const allIngredient = recipe.ingredients.map((el) => {
+          return el.ingredient
+        })
+
+        return (
+          allIngredient.filter((item) => {
+            return item.toLowerCase().includes(value)
+          }).length > 0
+        )
+      }).length > 0 ||
+      recipes.filter((recipe) => {
+        return recipe.ustensils.includes(value)
+      }).length > 0
 
     // recherche par nom
     createRecipes(
@@ -60,9 +81,10 @@ const filterRecipes = (recipes, e) => {
         return recipe.ustensils.includes(value)
       })
     )
-  } else {
-    document.querySelector('.recipes').textContent =
-      'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
+    if (!err) {
+      document.querySelector('.recipes').textContent =
+        'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
+    }
   }
 }
 
@@ -76,31 +98,7 @@ const filterSearch = (recipes, e) => {
   const filterInputIngredient = document.querySelector('#inputIngredients')
 
   // return console.log(filterInputIngredient)
-  filterInputIngredient.addEventListener('keyup', (e) => {
-    const value = e.target.value.toLowerCase()
-    // console.log(value)
-
-    if (value.length > 1) {
-      // Recherche par ingredient
-      if (!ingredientShow) {
-        document.querySelector('.filter__custom-menu').remove()
-        ingredientsList(
-          getAllIngredients(recipes)
-            .map((el) => {
-              // console.log(el.includes(value))
-              return el.includes(value) && el
-            })
-            // retir tout les false
-            .filter((el) => {
-              return el
-            })
-        )
-        ingredientShow = true
-      } else {
-        ingredientShow = false
-      }
-    }
-  })
+  filterInputIngredient.addEventListener('keyup', (e) => manageTags(e))
 
   // filter recherche sur le dropdown appareils
   const filterInputAppareils = document.querySelector('#inputAppareils')

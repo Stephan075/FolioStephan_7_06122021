@@ -1,6 +1,3 @@
-let ingredientShow = false
-let applianceShow = false
-let ustensilShow = false
 let listTags = []
 
 // créer une seul card
@@ -114,7 +111,10 @@ const ingredientsList = (recipes) => {
     filterCustomOptionItem.textContent = valeur
 
     // afficher les tags
-    filterCustomOptionItem.addEventListener('click', displayTag)
+    filterCustomOptionItem.addEventListener('click', (e) => {
+      displayTag(e)
+      manageTagsIngredient(e)
+    })
 
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
@@ -140,7 +140,10 @@ const applianceList = (recipes) => {
     filterCustomOptionItem.textContent = valeur
 
     // afficher les tags
-    filterCustomOptionItem.addEventListener('click', displayTag)
+    filterCustomOptionItem.addEventListener('click', (e) => {
+      displayTag(e)
+      manageTagsIngredient(e)
+    })
 
     filterCustomMenuList.appendChild(filterCustomOptionItem)
   }
@@ -262,6 +265,18 @@ const displayTag = (e) => {
   // console.log(e.target.textContent)
   listTags.push(e.target.textContent)
 
+  console.log(listTags)
+
+  if (listTags.includes(e.target.textContent)) {
+    const tagSelects = document.querySelectorAll('.filter__custom-option')
+
+    for (const button of tagSelects) {
+      button.addEventListener('click', (e) => {
+        // console.log(e)
+      })
+    }
+  }
+
   // console.log(listTags)
 
   removeTag(e)
@@ -272,13 +287,17 @@ const removeTag = (e) => {
   const listTagsSelect = document.querySelectorAll('.tags')
 
   if (listTagsSelect !== null) {
-    for (let i = 0; i < listTagsSelect.length; i++) {
+    for (let i = listTagsSelect.length - 1; i < listTagsSelect.length; i++) {
       const closeTag = document.querySelectorAll('#close')
-      console.log(`A l’index ${i} nous avons ${listTags[i]}`)
       // le TAG!
       closeTag[i].addEventListener('click', () => {
-        listTags.splice(i, 1)
+        console.log(`A l’index ${i} nous avons ${listTags[i]}`)
+        // console.log(i)
         listTagsSelect[i].remove()
+        // listTags.splice(i, 1)
+        listTags = listTags.filter((tag) => {
+          return tag !== listTags[i]
+        })
         console.log(listTags)
       })
     }
