@@ -91,6 +91,7 @@ const itemIngredient = (ingredient) => {
 // affichage toutes les ingredients
 const ingredientsList = (recipes) => {
   const filterSelect = document.querySelectorAll('.filter__custom-select')[0]
+  const arrow = document.querySelectorAll('.filter__custom-arrow', 'before')[0]
   // console.log(filterSelect)
 
   const listAllIngredients = recipes
@@ -104,28 +105,39 @@ const ingredientsList = (recipes) => {
   filterCustomMenuList.setAttribute('id', `ingredientsList`)
 
   filterSelect.appendChild(filterCustomMenuList)
+  // console.log(arr.length)
+  if (arr.length > 1) {
+    for (const valeur of arr) {
+      const filterCustomOptionItem = document.createElement('li')
+      filterCustomOptionItem.className = 'filter__custom-option'
+      filterCustomOptionItem.textContent = valeur
 
-  for (const valeur of arr) {
-    const filterCustomOptionItem = document.createElement('li')
-    filterCustomOptionItem.className = 'filter__custom-option'
-    filterCustomOptionItem.textContent = valeur
+      // afficher les tags
+      filterCustomOptionItem.addEventListener('click', (e) => {
+        displayTag(e)
+        manageTagsIngredient(e)
+        ingredientShow = false
+      })
 
-    // afficher les tags
-    filterCustomOptionItem.addEventListener('click', (e) => {
-      displayTag(e)
-      manageTagsIngredient(e)
-    })
-
-    filterCustomMenuList.appendChild(filterCustomOptionItem)
+      filterCustomMenuList.appendChild(filterCustomOptionItem)
+    }
+  } else {
+    document
+      .querySelector('.filter__select--toggle')
+      .classList.remove('filter__select--toggle')
+    document.querySelector('.filter__custom-menu').remove() || ''
+    arrow.style.transform = 'rotate(0deg)'
   }
 }
 
 // la liste des Appareils
 const applianceList = (recipes) => {
+  const arrow = document.querySelectorAll('.filter__custom-arrow', 'before')[1]
   // selectionner le bon elem du DOM
   const filterSelect = document.querySelectorAll('.filter__custom-select')[1]
 
   const listAllAppliance = recipes
+  listAllAppliance.sort()
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -133,28 +145,39 @@ const applianceList = (recipes) => {
 
   filterSelect.appendChild(filterCustomMenuList)
 
-  for (const valeur of listAllAppliance) {
-    // console.log('valeur : ', valeur)
-    const filterCustomOptionItem = document.createElement('li')
-    filterCustomOptionItem.className = 'filter__custom-option'
-    filterCustomOptionItem.textContent = valeur
+  if (listAllAppliance.length > 0) {
+    for (const valeur of listAllAppliance) {
+      // console.log('valeur : ', valeur)
+      const filterCustomOptionItem = document.createElement('li')
+      filterCustomOptionItem.className = 'filter__custom-option'
+      filterCustomOptionItem.textContent = valeur
 
-    // afficher les tags
-    filterCustomOptionItem.addEventListener('click', (e) => {
-      displayTag(e)
-      manageTagsIngredient(e)
-    })
+      // afficher les tags
+      filterCustomOptionItem.addEventListener('click', (e) => {
+        displayTag(e)
+        manageTagsAppliance(e)
+        applianceShow = false
+      })
 
-    filterCustomMenuList.appendChild(filterCustomOptionItem)
+      filterCustomMenuList.appendChild(filterCustomOptionItem)
+    }
+  } else {
+    document
+      .querySelector('.filter__select--toggle')
+      .classList.remove('filter__select--toggle')
+    document.querySelector('.filter__custom-menu').remove() || ''
+    arrow.style.transform = 'rotate(0deg)'
   }
 }
 
 // la liste des ustensils
 const ustensilList = (recipes) => {
+  const arrow = document.querySelectorAll('.filter__custom-arrow', 'before')[2]
   // selectionner le bon elem du DOM
   const filterSelect = document.querySelectorAll('.filter__custom-select')[2]
 
   const listAllUstensils = recipes
+  listAllUstensils.sort()
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -162,15 +185,27 @@ const ustensilList = (recipes) => {
 
   filterSelect.appendChild(filterCustomMenuList)
 
-  for (const valeur of listAllUstensils) {
-    const filterCustomOptionItem = document.createElement('li')
-    filterCustomOptionItem.className = 'filter__custom-option'
-    filterCustomOptionItem.textContent = valeur
+  if (listAllUstensils.length > 0) {
+    for (const valeur of listAllUstensils) {
+      const filterCustomOptionItem = document.createElement('li')
+      filterCustomOptionItem.className = 'filter__custom-option'
+      filterCustomOptionItem.textContent = valeur
 
-    // afficher les tags
-    filterCustomOptionItem.addEventListener('click', displayTag)
+      // afficher les tags
+      filterCustomOptionItem.addEventListener('click', (e) => {
+        displayTag(e)
+        manageTagsUstensils(e)
+        ustensilShow = false
+      })
 
-    filterCustomMenuList.appendChild(filterCustomOptionItem)
+      filterCustomMenuList.appendChild(filterCustomOptionItem)
+    }
+  } else {
+    document
+      .querySelector('.filter__select--toggle')
+      .classList.remove('filter__select--toggle')
+    document.querySelector('.filter__custom-menu').remove() || ''
+    arrow.style.transform = 'rotate(0deg)'
   }
 }
 
@@ -193,6 +228,7 @@ const dropdown = (recipe) => {
 
     const filterSelect = document.createElement('input')
     filterSelect.className = `filter__select ${item.background}`
+
     filterSelect.addEventListener('click', (e) => {
       // console.log(e)
     })
@@ -216,30 +252,60 @@ const dropdown = (recipe) => {
 
   document.querySelectorAll('.filter__select').forEach((item) => {
     item.addEventListener('click', (e) => {
+      const arrow = document.querySelectorAll('.filter__custom-arrow', 'before')
+
       item.classList.toggle('filter__select--toggle')
+
+      // const items = document.querySelector('.filter__select')
+
+      // if (!items.classList.contains('filter__show')) {
+      //   ingredientShow = false
+      //   const custom = document.querySelector('.filter__custom-menu')
+      //   if (custom) {
+      //     custom.remove()
+      //     arrow[0].style.transform = 'rotate(0deg)'
+      //     console.log(true)
+      //   }
+      // }
+
       if (item.placeholder === 'Ingredients') {
         if (!ingredientShow) {
           ingredientsList(getAllIngredients(recipe))
           ingredientShow = true
+          arrow[0].style.transform = 'rotate(180deg)'
         } else {
-          // supprimer le toggle
-          document.querySelector('.filter__custom-menu').remove()
+          const filter = document.querySelector('.filter__custom-menu')
+
+          if (filter) filter.remove()
+
           ingredientShow = false
+          arrow[0].style.transform = 'rotate(0deg)'
         }
       } else if (item.placeholder === 'Appareils') {
+        // applianceShow = false
         if (!applianceShow) {
-          applianceList(getAllAppliance(recipe))
+          applianceList(
+            applianceRest.length > 0 ? applianceRest : getAllAppliance(recipe)
+          )
           applianceShow = true
+          arrow[1].style.transform = 'rotate(180deg)'
         } else {
-          document.querySelector('.filter__custom-menu').remove()
+          document.querySelector('.filter__custom-menu')?.remove()
           applianceShow = false
+          arrow[1].style.transform = 'rotate(0deg)'
         }
       } else {
+        // ustensilShow = false
         if (!ustensilShow) {
-          ustensilList(getAllUstensils(recipe))
+          ustensilList(
+            ustensilRest.length > 0 ? ustensilRest : getAllUstensils(recipe)
+          )
           ustensilShow = true
+          arrow[2].style.transform = 'rotate(180deg)'
         } else {
           ustensilShow = false
+          arrow[2].style.transform = 'rotate(0deg)'
+
           document.querySelector('.filter__custom-menu').remove()
         }
       }
@@ -265,7 +331,7 @@ const displayTag = (e) => {
   // console.log(e.target.textContent)
   listTags.push(e.target.textContent)
 
-  console.log(listTags)
+  // console.log(listTags)
 
   if (listTags.includes(e.target.textContent)) {
     const tagSelects = document.querySelectorAll('.filter__custom-option')

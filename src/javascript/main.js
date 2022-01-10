@@ -97,66 +97,19 @@ const filterSearch = (recipes, e) => {
   // filter recherche sur le dropdown ingredients
   const filterInputIngredient = document.querySelector('#inputIngredients')
 
-  // return console.log(filterInputIngredient)
-  filterInputIngredient.addEventListener('keyup', (e) => manageTags(e))
+  filterInputIngredient.addEventListener('keyup', (e) =>
+    manageTagsIngredient(e)
+  )
 
   // filter recherche sur le dropdown appareils
   const filterInputAppareils = document.querySelector('#inputAppareils')
   // return console.log(filterInputIngredient)
-  filterInputAppareils.addEventListener('keyup', (e) => {
-    const value = e.target.value.toLowerCase()
-    // console.log(value)
-
-    if (value.length > 1) {
-      // console.log(document.querySelector('.filter__custom-menu'))
-      // Recherche par ingredient
-      if (!applianceShow) {
-        document.querySelector('.filter__custom-menu').remove()
-        applianceList(
-          getAllAppliance(recipes)
-            .map((el) => {
-              return el.includes(value) && el
-            })
-            // retir tout les false
-            .filter((el) => {
-              return el
-            })
-        )
-        applianceShow = true
-      } else {
-        applianceShow = false
-      }
-    }
-  })
+  filterInputAppareils.addEventListener('keyup', (e) => manageTagsAppliance(e))
 
   // filter recherche sur le dropdown Ustensiles
   const filterInputUstensiles = document.querySelector('#inputUstensiles')
   // return console.log(filterInputIngredient)
-  filterInputUstensiles.addEventListener('keyup', (e) => {
-    const value = e.target.value.toLowerCase()
-    // console.log(value)
-
-    if (value.length > 1) {
-      // console.log(document.querySelector('.filter__custom-menu'))
-      // Recherche par ingredient
-      if (!ustensilShow) {
-        document.querySelector('.filter__custom-menu').remove()
-        ustensilList(
-          getAllUstensils(recipes)
-            .map((el) => {
-              return el.includes(value) && el
-            })
-            // retir tout les false
-            .filter((el) => {
-              return el
-            })
-        )
-        ustensilShow = true
-      } else {
-        ustensilShow = false
-      }
-    }
-  })
+  filterInputUstensiles.addEventListener('keyup', (e) => manageTagsUstensils(e))
 }
 
 const cardEnFonctionDesTagsSelectionner = (recipes) => {
