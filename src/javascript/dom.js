@@ -105,7 +105,7 @@ const ingredientsList = (recipes) => {
   filterCustomMenuList.setAttribute('id', `ingredientsList`)
 
   filterSelect.appendChild(filterCustomMenuList)
-  // console.log(arr.length)
+  // console.log(arr)
   if (arr.length > 1) {
     for (const valeur of arr) {
       const filterCustomOptionItem = document.createElement('li')
@@ -144,8 +144,9 @@ const applianceList = (recipes) => {
   filterCustomMenuList.className = 'filter__custom-menu bg-success'
 
   filterSelect.appendChild(filterCustomMenuList)
-
-  if (listAllAppliance.length > 0) {
+  // console.log(listAllAppliance)
+  // console.log(listAllAppliance.length)
+  if (listAllAppliance.length > 1) {
     for (const valeur of listAllAppliance) {
       // console.log('valeur : ', valeur)
       const filterCustomOptionItem = document.createElement('li')
@@ -185,7 +186,7 @@ const ustensilList = (recipes) => {
 
   filterSelect.appendChild(filterCustomMenuList)
 
-  if (listAllUstensils.length > 0) {
+  if (listAllUstensils.length > 1) {
     for (const valeur of listAllUstensils) {
       const filterCustomOptionItem = document.createElement('li')
       filterCustomOptionItem.className = 'filter__custom-option'
@@ -256,21 +257,13 @@ const dropdown = (recipe) => {
 
       item.classList.toggle('filter__select--toggle')
 
-      // const items = document.querySelector('.filter__select')
-
-      // if (!items.classList.contains('filter__show')) {
-      //   ingredientShow = false
-      //   const custom = document.querySelector('.filter__custom-menu')
-      //   if (custom) {
-      //     custom.remove()
-      //     arrow[0].style.transform = 'rotate(0deg)'
-      //     console.log(true)
-      //   }
-      // }
-
       if (item.placeholder === 'Ingredients') {
         if (!ingredientShow) {
-          ingredientsList(getAllIngredients(recipe))
+          ingredientsList(
+            ingredientRest.length > 0
+              ? ingredientRest
+              : getAllIngredients(recipe)
+          )
           ingredientShow = true
           arrow[0].style.transform = 'rotate(180deg)'
         } else {
@@ -333,15 +326,16 @@ const displayTag = (e) => {
 
   // console.log(listTags)
 
-  if (listTags.includes(e.target.textContent)) {
-    const tagSelects = document.querySelectorAll('.filter__custom-option')
+  // if (listTags.includes(e.target.textContent)) {
+  //   const tagSelects = document.querySelectorAll('.filter__custom-option')
 
-    for (const button of tagSelects) {
-      button.addEventListener('click', (e) => {
-        // console.log(e)
-      })
-    }
-  }
+  //   for (const button of tagSelects) {
+  //     button.addEventListener('click', (e) => {
+  //       // console.log(e)
+  //       manageTagsIngredient(e)
+  //     })
+  //   }
+  // }
 
   // console.log(listTags)
 
