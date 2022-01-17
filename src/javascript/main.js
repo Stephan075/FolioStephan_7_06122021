@@ -123,13 +123,14 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
         curr.addEventListener('click', (e) => {
           // console.log(e.target.textContent)
           if (listTags.includes(e.target.textContent)) {
-            document.querySelector('.recipes').textContent = ''
             for (let current of listTags) {
+              document.querySelector('.recipes').textContent = ''
               // console.log('curr :', current)
-
+              console.log(manageFilter(recipes))
               // recherche par ingredients
-              createRecipes(
-                recipes.filter((recipe) => {
+
+              const filterIngredient = manageFilter(recipes).filter(
+                (recipe) => {
                   const allIngredient = recipe.ingredients.map((el) => {
                     // console.log('el : ' + el.ingredient)
                     return el.ingredient
@@ -142,24 +143,26 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
                       return item.toLowerCase().includes(current)
                     }).length > 0
                   )
-                })
+                }
               )
 
-              // recherche par Appareils
+              const filterAppliance = manageFilter(recipes).filter((recipe) => {
+                return recipe.appliance.toLowerCase().includes(current)
+              })
+
+              const filterUstensils = manageFilter(recipes).filter((recipe) => {
+                return recipe.ustensils.includes(current)
+              })
+
               createRecipes(
-                recipes.filter((recipe) => {
-                  return recipe.appliance.toLowerCase().includes(current)
-                })
+                filterIngredient.length > 0
+                  ? filterIngredient
+                  : filterAppliance.length > 0
+                  ? filterAppliance
+                  : filterUstensils.length > 0
+                  ? filterUstensils
+                  : recipes
               )
-
-              // Recherche par ustensils NOP
-              createRecipes(
-                recipes.filter((recipe) => {
-                  return recipe.ustensils.includes(current)
-                })
-              )
-
-              // console.log(listTags)
             }
           }
         })

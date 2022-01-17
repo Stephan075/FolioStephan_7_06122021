@@ -6,6 +6,10 @@ let ingredientRest = []
 let applianceRest = []
 let ustensilRest = []
 
+let recipesIngredientsRest = []
+let recipesAppliancesRest = []
+let recipesUstensilsRest = []
+
 // Manager ingredien
 const manageTagsIngredient = (e) => {
   const value = (e.target.textContent || e.target.value).toLowerCase()
@@ -30,7 +34,7 @@ const manageTagsIngredient = (e) => {
               })
       )
       ingredientShow = true
-      let tpmRecipes = recipes.filter((recipe) => {
+      recipesIngredientsRest = recipes.filter((recipe) => {
         const allIngredient = recipe.ingredients.map((el) => {
           return el.ingredient
         })
@@ -58,7 +62,7 @@ const manageTagsIngredient = (e) => {
       })
       applianceRest = [
         ...new Set(
-          tpmRecipes.map((elm) => {
+          recipesIngredientsRest.map((elm) => {
             // console.log(elm.appliance.toLowerCase())
             return elm.appliance.toLowerCase()
           })
@@ -66,7 +70,7 @@ const manageTagsIngredient = (e) => {
       ]
 
       let mesUstensils = []
-      const listeDesUstensils = tpmRecipes.map((elm) => {
+      const listeDesUstensils = recipesIngredientsRest.map((elm) => {
         return elm.ustensils
       })
 
@@ -79,7 +83,7 @@ const manageTagsIngredient = (e) => {
       ustensilRest = [...new Set(mesUstensils)]
 
       let mesIngredients = []
-      const listeDesIngredients = tpmRecipes.map((elm) => {
+      const listeDesIngredients = recipesIngredientsRest.map((elm) => {
         return elm.ingredients.map((el) => {
           return el.ingredient.toLowerCase()
         })
@@ -122,7 +126,7 @@ const manageTagsAppliance = (e) => {
       )
 
       applianceShow = true
-      let tmp = recipes.filter((recipe) => {
+      recipesAppliancesRest = recipes.filter((recipe) => {
         const allAppliances = [recipe.appliance]
 
         return (
@@ -150,7 +154,7 @@ const manageTagsAppliance = (e) => {
 
       // tag ingredients rest
       let mesIngredients = []
-      const listeDesIngredients = tmp.map((elm) => {
+      const listeDesIngredients = recipesAppliancesRest.map((elm) => {
         return elm.ingredients.map((el) => {
           return el.ingredient.toLowerCase()
         })
@@ -166,7 +170,7 @@ const manageTagsAppliance = (e) => {
 
       // ustensile TAG rest
       let mesUstensils = []
-      const listeDesUstensils = tmp.map((elm) => {
+      const listeDesUstensils = recipesAppliancesRest.map((elm) => {
         return elm.ustensils
       })
 
@@ -204,7 +208,7 @@ const manageTagsUstensils = (e) => {
               })
       )
       ustensilShow = true
-      let tpmRecipes = recipes.filter((recipe) => {
+      recipesUstensilsRest = recipes.filter((recipe) => {
         const allUstensil = recipe.ustensils.map((el) => {
           // liste de toutes les ustensils
           return el
@@ -232,7 +236,7 @@ const manageTagsUstensils = (e) => {
 
       applianceRest = [
         ...new Set(
-          tpmRecipes.map((elm) => {
+          recipesUstensilsRest.map((elm) => {
             console.log(elm.appliance.toLowerCase())
             return elm.appliance.toLowerCase()
           })
@@ -240,7 +244,7 @@ const manageTagsUstensils = (e) => {
       ]
 
       let mesIngredients = []
-      const listeDesIngredients = tpmRecipes.map((elm) => {
+      const listeDesIngredients = recipesUstensilsRest.map((elm) => {
         return elm.ingredients.map((el) => {
           return el.ingredient.toLowerCase()
         })
@@ -258,6 +262,33 @@ const manageTagsUstensils = (e) => {
     }
   }
 }
+
+const manageFilter = (recipes) => {
+  // le resultat à envoyer à l'utilisateur
+  // si il rentre pas dans le if il sera toujours recipes
+  let result = recipes
+
+  if (recipesIngredientsRest.length > 0) {
+    result = recipesIngredientsRest
+  }
+
+  if (recipesAppliancesRest.length > 0) {
+    if (result.length > recipesAppliancesRest.length) {
+      result = recipesAppliancesRest
+    }
+  }
+
+  if (recipesUstensilsRest.length > 0) {
+    console.log(result.length)
+    if (result.length > recipesUstensilsRest.length) {
+      result = recipesUstensilsRest
+    }
+  }
+
+  console.log(recipesUstensilsRest)
+  return result
+}
+
 // lossange = CSSConditionRule
 // caré = action
 

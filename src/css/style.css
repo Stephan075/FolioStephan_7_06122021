@@ -208,3 +208,27 @@
 .filter__custom-option:hover {
   background: #639bf0;
 }
+
+/* responsive */
+@media only screen and (max-width: 480px) {
+  /* @content; */
+}
+
+@media only screen and (min-width: 768px) and (max-width: 979px) {
+  /* main {
+    background: red;
+  } */
+}
+
+@media only screen and (max-width: 767px) {
+  .dropdowns {
+    flex-direction: column;
+    justify-content: space-between;
+    width: auto;
+  }
+  .filter__custom-select {
+    margin: 0.5rem;
+  }
+  .container {
+  }
+}

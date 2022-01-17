@@ -97,7 +97,15 @@ const ingredientsList = (recipes) => {
   const listAllIngredients = recipes
   // console.log(recipes)
   // console.log('liste des ingredient restant :', listAllIngredients)
-  let arr = Object.values(listAllIngredients).sort()
+  console.log(ingredientRest)
+  let arr = Object.values(listAllIngredients)
+    .map((item) => {
+      return !listTags.includes(item) && item
+    })
+    .filter((flse) => {
+      return flse
+    })
+    .sort()
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -146,7 +154,7 @@ const applianceList = (recipes) => {
   filterSelect.appendChild(filterCustomMenuList)
   // console.log(listAllAppliance)
   // console.log(listAllAppliance.length)
-  if (listAllAppliance.length > 1) {
+  if (listAllAppliance.length > 0) {
     for (const valeur of listAllAppliance) {
       // console.log('valeur : ', valeur)
       const filterCustomOptionItem = document.createElement('li')
@@ -321,23 +329,8 @@ const displayTag = (e) => {
 
   document.querySelector('.search__tags').appendChild(tagDom)
 
-  // console.log(e.target.textContent)
+  console.log(e.target.textContent)
   listTags.push(e.target.textContent)
-
-  // console.log(listTags)
-
-  // if (listTags.includes(e.target.textContent)) {
-  //   const tagSelects = document.querySelectorAll('.filter__custom-option')
-
-  //   for (const button of tagSelects) {
-  //     button.addEventListener('click', (e) => {
-  //       // console.log(e)
-  //       manageTagsIngredient(e)
-  //     })
-  //   }
-  // }
-
-  // console.log(listTags)
 
   removeTag(e)
 }
