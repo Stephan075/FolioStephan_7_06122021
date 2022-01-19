@@ -220,9 +220,9 @@ const funcUstensilsRest = (rest) => {
   ustensilRest = [...new Set(mesUstensils)]
 }
 
-const funcIngredientsRest = (item) => {
+const funcIngredientsRest = (rest) => {
   let mesIngredients = []
-  const listeDesIngredients = item.map((elm) => {
+  const listeDesIngredients = rest.map((elm) => {
     return elm.ingredients.map((el) => {
       return el.ingredient.toLowerCase()
     })
