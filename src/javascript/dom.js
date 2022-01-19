@@ -97,7 +97,6 @@ const ingredientsList = (recipes) => {
   const listAllIngredients = recipes
   // console.log(recipes)
   // console.log('liste des ingredient restant :', listAllIngredients)
-  console.log(ingredientRest)
   let arr = Object.values(listAllIngredients)
     .map((item) => {
       return !listTags.includes(item) && item
@@ -114,7 +113,7 @@ const ingredientsList = (recipes) => {
 
   filterSelect.appendChild(filterCustomMenuList)
   // console.log(arr)
-  if (arr.length > 1) {
+  if (arr.length > 0) {
     for (const valeur of arr) {
       const filterCustomOptionItem = document.createElement('li')
       filterCustomOptionItem.className = 'filter__custom-option'
@@ -124,17 +123,11 @@ const ingredientsList = (recipes) => {
       filterCustomOptionItem.addEventListener('click', (e) => {
         displayTag(e)
         manageTagsIngredient(e)
+        close_the_dropdown(arrow)
         ingredientShow = false
       })
-
       filterCustomMenuList.appendChild(filterCustomOptionItem)
     }
-  } else {
-    document
-      .querySelector('.filter__select--toggle')
-      .classList.remove('filter__select--toggle')
-    document.querySelector('.filter__custom-menu').remove() || ''
-    arrow.style.transform = 'rotate(0deg)'
   }
 }
 
@@ -145,7 +138,13 @@ const applianceList = (recipes) => {
   const filterSelect = document.querySelectorAll('.filter__custom-select')[1]
 
   const listAllAppliance = recipes
-  listAllAppliance.sort()
+    .map((item) => {
+      return !listTags.includes(item) && item
+    })
+    .filter((flse) => {
+      return flse
+    })
+    .sort()
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -165,17 +164,12 @@ const applianceList = (recipes) => {
       filterCustomOptionItem.addEventListener('click', (e) => {
         displayTag(e)
         manageTagsAppliance(e)
+        close_the_dropdown(arrow)
         applianceShow = false
       })
 
       filterCustomMenuList.appendChild(filterCustomOptionItem)
     }
-  } else {
-    document
-      .querySelector('.filter__select--toggle')
-      .classList.remove('filter__select--toggle')
-    document.querySelector('.filter__custom-menu').remove() || ''
-    arrow.style.transform = 'rotate(0deg)'
   }
 }
 
@@ -186,7 +180,13 @@ const ustensilList = (recipes) => {
   const filterSelect = document.querySelectorAll('.filter__custom-select')[2]
 
   const listAllUstensils = recipes
-  listAllUstensils.sort()
+    .map((item) => {
+      return !listTags.includes(item) && item
+    })
+    .filter((flse) => {
+      return flse
+    })
+    .sort()
 
   const filterCustomMenuList = document.createElement('ul')
 
@@ -194,7 +194,7 @@ const ustensilList = (recipes) => {
 
   filterSelect.appendChild(filterCustomMenuList)
 
-  if (listAllUstensils.length > 1) {
+  if (listAllUstensils.length > 0) {
     for (const valeur of listAllUstensils) {
       const filterCustomOptionItem = document.createElement('li')
       filterCustomOptionItem.className = 'filter__custom-option'
@@ -204,16 +204,23 @@ const ustensilList = (recipes) => {
       filterCustomOptionItem.addEventListener('click', (e) => {
         displayTag(e)
         manageTagsUstensils(e)
+        close_the_dropdown(arrow)
         ustensilShow = false
       })
 
       filterCustomMenuList.appendChild(filterCustomOptionItem)
     }
-  } else {
-    document
-      .querySelector('.filter__select--toggle')
-      .classList.remove('filter__select--toggle')
-    document.querySelector('.filter__custom-menu').remove() || ''
+  }
+}
+
+// supprimer le dropdown et modifier la direction des arrow
+const close_the_dropdown = (arrow) => {
+  const filterSelect = document.querySelector('.filter__select--toggle')
+  const filterCustom = document.querySelector('.filter__custom-menu')
+
+  if (filterSelect !== null || filterCustom !== null) {
+    filterSelect.classList.remove('filter__select--toggle')
+    filterCustom.remove()
     arrow.style.transform = 'rotate(0deg)'
   }
 }
@@ -288,6 +295,7 @@ const dropdown = (recipe) => {
           applianceList(
             applianceRest.length > 0 ? applianceRest : getAllAppliance(recipe)
           )
+          // console.log(applianceRest)
           applianceShow = true
           arrow[1].style.transform = 'rotate(180deg)'
         } else {

@@ -126,7 +126,7 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
             for (let current of listTags) {
               document.querySelector('.recipes').textContent = ''
               // console.log('curr :', current)
-              console.log(manageFilter(recipes))
+              // console.log(manageFilter(recipes))
               // recherche par ingredients
 
               const filterIngredient = manageFilter(recipes).filter(

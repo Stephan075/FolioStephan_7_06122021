@@ -34,6 +34,7 @@ const manageTagsIngredient = (e) => {
               })
       )
       ingredientShow = true
+
       recipesIngredientsRest = recipes.filter((recipe) => {
         const allIngredient = recipe.ingredients.map((el) => {
           return el.ingredient
@@ -60,48 +61,16 @@ const manageTagsIngredient = (e) => {
           }).length > 0
         )
       })
-      applianceRest = [
-        ...new Set(
-          recipesIngredientsRest.map((elm) => {
-            // console.log(elm.appliance.toLowerCase())
-            return elm.appliance.toLowerCase()
-          })
-        ),
-      ]
-
-      let mesUstensils = []
-      const listeDesUstensils = recipesIngredientsRest.map((elm) => {
-        return elm.ustensils
-      })
-
-      // crée un autre tab pour les afficher à la suite
-      for (const itemUstensil of listeDesUstensils) {
-        for (const item of itemUstensil) {
-          mesUstensils.push(item)
-        }
-      }
-      ustensilRest = [...new Set(mesUstensils)]
-
-      let mesIngredients = []
-      const listeDesIngredients = recipesIngredientsRest.map((elm) => {
-        return elm.ingredients.map((el) => {
-          return el.ingredient.toLowerCase()
-        })
-      })
-
-      // crée un autre tab pour les afficher à la suite
-      for (const itemUstensil of listeDesIngredients) {
-        for (const item of itemUstensil) {
-          mesIngredients.push(item)
-        }
-      }
-      ingredientRest = [...new Set(mesIngredients)]
+      // reste des Appareils
+      funcApplianceRest(recipesIngredientsRest)
+      // reste des Ustensils
+      funcUstensilsRest(recipesIngredientsRest)
+      // les ingredients qui reste
+      funcIngredientsRest(recipesIngredientsRest)
     } else {
       ingredientShow = false
     }
   }
-
-  // console.log(ingredientRest)
 }
 
 // Manager appareils
@@ -126,6 +95,7 @@ const manageTagsAppliance = (e) => {
       )
 
       applianceShow = true
+
       recipesAppliancesRest = recipes.filter((recipe) => {
         const allAppliances = [recipe.appliance]
 
@@ -151,36 +121,14 @@ const manageTagsAppliance = (e) => {
           }).length > 0
         )
       })
+      console.log(recipesAppliancesRest)
 
-      // tag ingredients rest
-      let mesIngredients = []
-      const listeDesIngredients = recipesAppliancesRest.map((elm) => {
-        return elm.ingredients.map((el) => {
-          return el.ingredient.toLowerCase()
-        })
-      })
-
-      // crée un autre tab pour les afficher à la suite
-      for (const itemUstensil of listeDesIngredients) {
-        for (const item of itemUstensil) {
-          mesIngredients.push(item)
-        }
-      }
-      ingredientRest = [...new Set(mesIngredients)]
-
+      // les ingredients qui reste
+      funcIngredientsRest(recipesUstensilsRest)
+      // reste des Appareils
+      funcApplianceRest(recipesAppliancesRest)
       // ustensile TAG rest
-      let mesUstensils = []
-      const listeDesUstensils = recipesAppliancesRest.map((elm) => {
-        return elm.ustensils
-      })
-
-      // crée un autre tab pour les afficher à la suite
-      for (const itemUstensil of listeDesUstensils) {
-        for (const item of itemUstensil) {
-          mesUstensils.push(item)
-        }
-      }
-      ustensilRest = [...new Set(mesUstensils)]
+      funcUstensilsRest(recipesAppliancesRest)
     } else {
       applianceShow = false
     }
@@ -234,33 +182,59 @@ const manageTagsUstensils = (e) => {
         )
       })
 
-      applianceRest = [
-        ...new Set(
-          recipesUstensilsRest.map((elm) => {
-            console.log(elm.appliance.toLowerCase())
-            return elm.appliance.toLowerCase()
-          })
-        ),
-      ]
-
-      let mesIngredients = []
-      const listeDesIngredients = recipesUstensilsRest.map((elm) => {
-        return elm.ingredients.map((el) => {
-          return el.ingredient.toLowerCase()
-        })
-      })
-
-      // crée un autre tab pour les afficher à la suite
-      for (const itemUstensil of listeDesIngredients) {
-        for (const item of itemUstensil) {
-          mesIngredients.push(item)
-        }
-      }
-      ingredientRest = [...new Set(mesIngredients)]
+      // les ingredients qui reste
+      funcIngredientsRest(recipesUstensilsRest)
+      // Appareil filter rest
+      funcApplianceRest(recipesUstensilsRest)
+      // ustensile filter rest
+      funcUstensilsRest(recipesUstensilsRest)
     } else {
       ustensilShow = false
     }
   }
+}
+
+const funcApplianceRest = (rest) => {
+  return (applianceRest = [
+    ...new Set(
+      rest.map((elm) => {
+        // console.log(elm.appliance.toLowerCase())
+        return elm.appliance.toLowerCase()
+      })
+    ),
+  ])
+}
+
+const funcUstensilsRest = (rest) => {
+  let mesUstensils = []
+  const listeDesUstensils = rest.map((elm) => {
+    return elm.ustensils
+  })
+
+  // crée un autre tab pour les afficher à la suite
+  for (const itemUstensil of listeDesUstensils) {
+    for (const item of itemUstensil) {
+      mesUstensils.push(item)
+    }
+  }
+  ustensilRest = [...new Set(mesUstensils)]
+}
+
+const funcIngredientsRest = (item) => {
+  let mesIngredients = []
+  const listeDesIngredients = item.map((elm) => {
+    return elm.ingredients.map((el) => {
+      return el.ingredient.toLowerCase()
+    })
+  })
+
+  // crée un autre tab pour les afficher à la suite
+  for (const itemUstensil of listeDesIngredients) {
+    for (const item of itemUstensil) {
+      mesIngredients.push(item)
+    }
+  }
+  ingredientRest = [...new Set(mesIngredients)]
 }
 
 const manageFilter = (recipes) => {
@@ -285,7 +259,6 @@ const manageFilter = (recipes) => {
     }
   }
 
-  console.log(recipesUstensilsRest)
   return result
 }
 
