@@ -147,12 +147,10 @@ const applianceList = (recipes) => {
     .sort()
 
   const filterCustomMenuList = document.createElement('ul')
-
   filterCustomMenuList.className = 'filter__custom-menu bg-success'
 
   filterSelect.appendChild(filterCustomMenuList)
-  // console.log(listAllAppliance)
-  // console.log(listAllAppliance.length)
+
   if (listAllAppliance.length > 0) {
     for (const valeur of listAllAppliance) {
       // console.log('valeur : ', valeur)
@@ -246,10 +244,11 @@ const dropdown = (recipe) => {
     filterSelect.className = `filter__select ${item.background}`
 
     filterSelect.addEventListener('click', (e) => {
-      // console.log(e)
+      // filterSelect.setAttribute('placeholder', 'item.name')
     })
 
     filterSelect.setAttribute('placeholder', item.name)
+    filterSelect.setAttribute('name', item.name)
     filterSelect.setAttribute('type', 'text')
     filterSelect.setAttribute('aria-label', `Recherche par ${item.name}`)
     filterSelect.setAttribute('id', `input${item.name}`)
@@ -272,7 +271,8 @@ const dropdown = (recipe) => {
 
       item.classList.toggle('filter__select--toggle')
 
-      if (item.placeholder === 'Ingredients') {
+      if (item.name === 'Ingredients') {
+        item.placeholder = 'Recherche Ingredient'
         if (!ingredientShow) {
           ingredientsList(
             ingredientRest.length > 0
@@ -289,7 +289,8 @@ const dropdown = (recipe) => {
           ingredientShow = false
           arrow[0].style.transform = 'rotate(0deg)'
         }
-      } else if (item.placeholder === 'Appareils') {
+      } else if (item.name === 'Appareils') {
+        item.placeholder = 'Recherche app'
         // applianceShow = false
         if (!applianceShow) {
           applianceList(
@@ -303,9 +304,10 @@ const dropdown = (recipe) => {
           applianceShow = false
           arrow[1].style.transform = 'rotate(0deg)'
         }
-      } else {
+      } else if (item.name === 'Ustensiles') {
         // ustensilShow = false
         if (!ustensilShow) {
+          item.placeholder = 'Recherche use'
           ustensilList(
             ustensilRest.length > 0 ? ustensilRest : getAllUstensils(recipe)
           )

@@ -5,9 +5,15 @@ const recipesSection = document.querySelector('.recipes')
 // ici on crée le DOM pour afficher les recettes
 const createRecipes = (recipes) => {
   // On récupére les recette 1/1
-  recipes.map((recipe) => {
-    card(recipe)
-  })
+
+  for (let i = 0; i < recipes.length; i++) {
+    const element = recipes[i]
+    card(element)
+  }
+  // recipes.map((recipe) => {
+  //   console.log(recipe)
+  //   card(recipe)
+  // })
 }
 
 // géré les recherche de l'utilisateur sur le searchBar principale
@@ -20,41 +26,58 @@ const filterRecipes = (recipes, e) => {
 
   if (value.length > 2) {
     document.querySelector('.recipes').textContent = ''
-    let err =
-      recipes.filter((recipe) => {
-        return recipe.name.toLowerCase().includes(value)
-      }).length > 0 ||
-      recipes.filter((recipe) => {
-        return recipe.description.toLowerCase().includes(value)
-      }).length > 0 ||
-      recipes.filter((recipe) => {
-        const allIngredient = recipe.ingredients.map((el) => {
-          return el.ingredient
-        })
+    // let err =
+    //   recipes.filter((recipe) => {
+    //     console.log('ing ', recipe)
+    //     return recipe.name.toLowerCase().includes(value)
+    //   }).length > 0 ||
+    //   recipes.filter((recipe) => {
+    //     return recipe.description.toLowerCase().includes(value)
+    //   }).length > 0 ||
+    //   recipes.filter((recipe) => {
+    //     const allIngredient = recipe.ingredients.map((el) => {
+    //       return el.ingredient
+    //     })
 
-        return (
-          allIngredient.filter((item) => {
-            return item.toLowerCase().includes(value)
-          }).length > 0
-        )
-      }).length > 0 ||
-      recipes.filter((recipe) => {
-        return recipe.ustensils.includes(value)
-      }).length > 0
+    //     return (
+    //       allIngredient.filter((item) => {
+    //         return item.toLowerCase().includes(value)
+    //       }).length > 0
+    //     )
+    //   }).length > 0 ||
+    //   recipes.filter((recipe) => {
+    //     return recipe.ustensils.includes(value)
+    //   }).length > 0
 
     // recherche par nom
-    createRecipes(
-      recipes.filter((recipe) => {
-        return recipe.name.toLowerCase().includes(value)
-      })
-    )
 
-    // Recherche par description
-    createRecipes(
-      recipes.filter((recipe) => {
-        return recipe.description.toLowerCase().includes(value)
-      })
-    )
+    let result = []
+
+    for (const cur of recipes) {
+      const name = cur.name.toLowerCase()
+      const desc = cur.description.toLowerCase()
+      const ustensil = cur.ustensils
+
+      for (const ingredient of cur.ingredients) {
+        if (ingredient.ingredient.toLowerCase().includes(value)) {
+          result.push(cur)
+        }
+      }
+      if (name.includes(value)) {
+        result.push(cur)
+      } else if (desc.includes(value)) {
+        result.push(cur)
+      } else if (ustensil.includes(value)) {
+        result.push(cur)
+      }
+    }
+    // return
+
+    return createRecipes(result)
+
+    /*
+
+  
 
     // Recherche par ingredient
     createRecipes(
@@ -81,10 +104,13 @@ const filterRecipes = (recipes, e) => {
         return recipe.ustensils.includes(value)
       })
     )
-    if (!err) {
-      document.querySelector('.recipes').textContent =
-        'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
-    }
+
+    */
+
+    // if (!err) {
+    //   document.querySelector('.recipes').textContent =
+    //     'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
+    // }
   }
 }
 
