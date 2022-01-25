@@ -125,6 +125,7 @@ const ingredientsList = (recipes) => {
         manageTagsIngredient(e)
         close_the_dropdown(arrow)
         ingredientShow = false
+        document.querySelector('#inputIngredients').placeholder = 'Ingredients'
       })
       filterCustomMenuList.appendChild(filterCustomOptionItem)
     }
@@ -164,6 +165,7 @@ const applianceList = (recipes) => {
         manageTagsAppliance(e)
         close_the_dropdown(arrow)
         applianceShow = false
+        document.querySelector('#inputAppareils').placeholder = 'Appareils'
       })
 
       filterCustomMenuList.appendChild(filterCustomOptionItem)
@@ -204,6 +206,7 @@ const ustensilList = (recipes) => {
         manageTagsUstensils(e)
         close_the_dropdown(arrow)
         ustensilShow = false
+        document.querySelector('#inputUstensiles').placeholder = 'Ustensiles'
       })
 
       filterCustomMenuList.appendChild(filterCustomOptionItem)
@@ -243,10 +246,6 @@ const dropdown = (recipe) => {
     const filterSelect = document.createElement('input')
     filterSelect.className = `filter__select ${item.background}`
 
-    filterSelect.addEventListener('click', (e) => {
-      // filterSelect.setAttribute('placeholder', 'item.name')
-    })
-
     filterSelect.setAttribute('placeholder', item.name)
     filterSelect.setAttribute('name', item.name)
     filterSelect.setAttribute('type', 'text')
@@ -263,16 +262,13 @@ const dropdown = (recipe) => {
     document.querySelector('.dropdowns').appendChild(filterCustomSelect)
   })
 
-  // const input = document.querySelectorAll('.filter__select')
-
   document.querySelectorAll('.filter__select').forEach((item) => {
     item.addEventListener('click', (e) => {
       const arrow = document.querySelectorAll('.filter__custom-arrow', 'before')
-
       item.classList.toggle('filter__select--toggle')
 
       if (item.name === 'Ingredients') {
-        item.placeholder = 'Recherche Ingredient'
+        item.placeholder = 'Recherche un ingrédient'
         if (!ingredientShow) {
           ingredientsList(
             ingredientRest.length > 0
@@ -282,6 +278,8 @@ const dropdown = (recipe) => {
           ingredientShow = true
           arrow[0].style.transform = 'rotate(180deg)'
         } else {
+          document.querySelector('#inputIngredients').placeholder =
+            'Ingredients'
           const filter = document.querySelector('.filter__custom-menu')
 
           if (filter) filter.remove()
@@ -290,8 +288,7 @@ const dropdown = (recipe) => {
           arrow[0].style.transform = 'rotate(0deg)'
         }
       } else if (item.name === 'Appareils') {
-        item.placeholder = 'Recherche app'
-        // applianceShow = false
+        item.placeholder = 'Recherche un appareil'
         if (!applianceShow) {
           applianceList(
             applianceRest.length > 0 ? applianceRest : getAllAppliance(recipe)
@@ -303,11 +300,12 @@ const dropdown = (recipe) => {
           document.querySelector('.filter__custom-menu')?.remove()
           applianceShow = false
           arrow[1].style.transform = 'rotate(0deg)'
+          document.querySelector('#inputAppareils').placeholder = 'Appareils'
         }
       } else if (item.name === 'Ustensiles') {
         // ustensilShow = false
         if (!ustensilShow) {
-          item.placeholder = 'Recherche use'
+          item.placeholder = 'Recherche un ustensile'
           ustensilList(
             ustensilRest.length > 0 ? ustensilRest : getAllUstensils(recipe)
           )
@@ -318,6 +316,7 @@ const dropdown = (recipe) => {
           arrow[2].style.transform = 'rotate(0deg)'
 
           document.querySelector('.filter__custom-menu').remove()
+          document.querySelector('#inputUstensiles').placeholder = 'Ustensiles'
         }
       }
     })

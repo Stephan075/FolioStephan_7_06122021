@@ -26,30 +26,6 @@ const filterRecipes = (recipes, e) => {
 
   if (value.length > 2) {
     document.querySelector('.recipes').textContent = ''
-    // let err =
-    //   recipes.filter((recipe) => {
-    //     console.log('ing ', recipe)
-    //     return recipe.name.toLowerCase().includes(value)
-    //   }).length > 0 ||
-    //   recipes.filter((recipe) => {
-    //     return recipe.description.toLowerCase().includes(value)
-    //   }).length > 0 ||
-    //   recipes.filter((recipe) => {
-    //     const allIngredient = recipe.ingredients.map((el) => {
-    //       return el.ingredient
-    //     })
-
-    //     return (
-    //       allIngredient.filter((item) => {
-    //         return item.toLowerCase().includes(value)
-    //       }).length > 0
-    //     )
-    //   }).length > 0 ||
-    //   recipes.filter((recipe) => {
-    //     return recipe.ustensils.includes(value)
-    //   }).length > 0
-
-    // recherche par nom
 
     let result = []
 
@@ -72,45 +48,11 @@ const filterRecipes = (recipes, e) => {
       }
     }
     // return
-
-    return createRecipes(result)
-
-    /*
-
-  
-
-    // Recherche par ingredient
-    createRecipes(
-      recipes.filter((recipe) => {
-        const allIngredient = recipe.ingredients.map((el) => {
-          // console.log('el : ' + el.ingredient)
-          return el.ingredient
-        })
-
-        return (
-          allIngredient.filter((item) => {
-            // console.log(item.toLowerCase().includes(value))
-
-            return item.toLowerCase().includes(value)
-          }).length > 0
-        )
-      })
-    )
-
-    // Recherche par ustensils NOP
-    createRecipes(
-      recipes.filter((recipe) => {
-        // console.log(value)
-        return recipe.ustensils.includes(value)
-      })
-    )
-
-    */
-
-    // if (!err) {
-    //   document.querySelector('.recipes').textContent =
-    //     'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
-    // }
+    if (result.length === 0) {
+      document.querySelector('.recipes').textContent =
+        'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
+    }
+    return createRecipes([...new Set(result)])
   }
 }
 
