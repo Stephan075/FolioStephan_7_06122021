@@ -1,3 +1,6 @@
+* {
+  font-family: 'Lato', sans-serif;
+}
 .logo {
   width: 100%;
   display: flex;
@@ -85,7 +88,12 @@
 }
 
 .ingredients {
-  margin-right: 26px;
+  margin-right: 19px;
+  height: 7rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  overflow: hidden;
 }
 
 .ingredient__list {
@@ -93,20 +101,13 @@
 }
 
 .etape {
-  /* width: 40rem;
-  overflow: hidden;
-  text-overflow: ellipsis; */
-
-  /* width: 40rem; */
   flex-basis: 50rem;
   line-height: 1.3;
-  height: 9rem;
+  height: 7rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 7;
   overflow: hidden;
-
-  /* text-align: end; */
 }
 
 /*  */
