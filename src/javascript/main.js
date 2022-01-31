@@ -112,6 +112,7 @@ const filterSearch = (recipes, e) => {
 
 const cardEnFonctionDesTagsSelectionner = (recipes) => {
   const filterCustomOptionlist = document.querySelectorAll('.filter__select')
+
   filterCustomOptionlist.forEach((item) => {
     item.addEventListener('click', (e) => {
       const filterCustomOptionItem = document.querySelectorAll(
@@ -123,11 +124,14 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
           if (listTags.includes(e.target.textContent)) {
             for (let current of listTags) {
               document.querySelector('.recipes').textContent = ''
+              // console.log('curr :', current)
+              // console.log(manageFilter(recipes))
+              // recherche par ingredients
 
               const filterIngredient = manageFilter(recipes).filter(
                 (recipe) => {
                   const allIngredient = recipe.ingredients.map((el) => {
-                    // console.log('el : ' + el.ingredient)
+                    console.log('el : ' + el.ingredient)
                     return el.ingredient
                   })
 
@@ -135,6 +139,52 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
                     allIngredient.filter((item) => {
                       // console.log(item.toLowerCase().includes(value))
 
+                      return item.toLowerCase().includes(current)
+                    }).length > 0
+                  )
+                }
+              )
+
+              const filterAppliance = manageFilter(recipes).filter((recipe) => {
+                return recipe.appliance.toLowerCase().includes(current)
+              })
+
+              const filterUstensils = manageFilter(recipes).filter((recipe) => {
+                return recipe.ustensils.includes(current)
+              })
+
+              createRecipes(
+                filterIngredient.length > 0
+                  ? filterIngredient
+                  : filterAppliance.length > 0
+                  ? filterAppliance
+                  : filterUstensils.length > 0
+                  ? filterUstensils
+                  : recipes
+              )
+            }
+          }
+        })
+      }
+    })
+    item.addEventListener('keyup', (e) => {
+      const filterCustomOptionItem = document.querySelectorAll(
+        '.filter__custom-option'
+      )
+      for (const curr of filterCustomOptionItem) {
+        curr.addEventListener('click', (e) => {
+          if (listTags.includes(e.target.textContent)) {
+            for (let current of listTags) {
+              document.querySelector('.recipes').textContent = ''
+
+              const filterIngredient = manageFilter(recipes).filter(
+                (recipe) => {
+                  const allIngredient = recipe.ingredients.map((el) => {
+                    return el.ingredient
+                  })
+
+                  return (
+                    allIngredient.filter((item) => {
                       return item.toLowerCase().includes(current)
                     }).length > 0
                   )
