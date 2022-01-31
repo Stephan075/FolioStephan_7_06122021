@@ -121,7 +121,7 @@ const manageTagsAppliance = (e) => {
           }).length > 0
         )
       })
-      console.log(recipesAppliancesRest)
+      // console.log(recipesAppliancesRest)
 
       // les ingredients qui reste
       funcIngredientsRest(recipesUstensilsRest)
@@ -138,7 +138,7 @@ const manageTagsAppliance = (e) => {
 // Manager ustensils
 const manageTagsUstensils = (e) => {
   const value = (e.target.textContent || e.target.value).toLowerCase()
-  console.log(value)
+  // console.log(value)
 
   if (value.length > 1) {
     if (!ustensilShow || e.target.textContent) {
@@ -173,7 +173,7 @@ const manageTagsUstensils = (e) => {
                   return el
                 })
                 .map((elmToLowerCase) => {
-                  console.log(elmToLowerCase)
+                  // console.log(elmToLowerCase)
                   return elmToLowerCase.toLowerCase()
                 })
                 .includes(item.toLowerCase())
@@ -253,7 +253,7 @@ const manageFilter = (recipes) => {
   }
 
   if (recipesUstensilsRest.length > 0) {
-    console.log(result.length)
+    // console.log(result.length)
     if (result.length > recipesUstensilsRest.length) {
       result = recipesUstensilsRest
     }

@@ -121,7 +121,8 @@ const ingredientsList = (recipes) => {
 
       // afficher les tags
       filterCustomOptionItem.addEventListener('click', (e) => {
-        displayTag(e)
+        let value = 'bg-primary'
+        displayTag(value, e)
         manageTagsIngredient(e)
         close_the_dropdown(arrow)
         ingredientShow = false
@@ -161,7 +162,8 @@ const applianceList = (recipes) => {
 
       // afficher les tags
       filterCustomOptionItem.addEventListener('click', (e) => {
-        displayTag(e)
+        let value = 'bg-success'
+        displayTag(value, e)
         manageTagsAppliance(e)
         close_the_dropdown(arrow)
         applianceShow = false
@@ -202,7 +204,8 @@ const ustensilList = (recipes) => {
 
       // afficher les tags
       filterCustomOptionItem.addEventListener('click', (e) => {
-        displayTag(e)
+        let value = 'bg-danger'
+        displayTag(value, e)
         manageTagsUstensils(e)
         close_the_dropdown(arrow)
         ustensilShow = false
@@ -324,10 +327,12 @@ const dropdown = (recipe) => {
 }
 
 // création d'un tag
-const displayTag = (e) => {
+const displayTag = (value, e) => {
   let tagDom = document.createElement('span')
 
-  tagDom.className = 'badge tags bg-primary'
+  let bgColor = value
+
+  tagDom.className = `badge tags ${value}`
   tagDom.textContent = e.target.textContent
 
   let icon = document.createElement('i')
@@ -338,7 +343,7 @@ const displayTag = (e) => {
 
   document.querySelector('.search__tags').appendChild(tagDom)
 
-  console.log(e.target.textContent)
+  // console.log(e.target.textContent)
   listTags.push(e.target.textContent)
 
   removeTag(e)

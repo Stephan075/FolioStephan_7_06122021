@@ -5,22 +5,16 @@ const recipesSection = document.querySelector('.recipes')
 // ici on crée le DOM pour afficher les recettes
 const createRecipes = (recipes) => {
   // On récupére les recette 1/1
-
   for (let i = 0; i < recipes.length; i++) {
     const element = recipes[i]
     card(element)
   }
-  // recipes.map((recipe) => {
-  //   console.log(recipe)
-  //   card(recipe)
-  // })
 }
 
 // géré les recherche de l'utilisateur sur le searchBar principale
 const filterRecipes = (recipes, e) => {
   // écouter l'évenement input
 
-  // console.log(recipes)
   const value = e.target.value.toLowerCase()
   // console.log(listTags)
 
@@ -47,7 +41,7 @@ const filterRecipes = (recipes, e) => {
         result.push(cur)
       }
     }
-    // return
+    // err
     if (result.length === 0) {
       document.querySelector('.recipes').textContent =
         'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc'
@@ -82,6 +76,7 @@ const filterSearch = (recipes, e) => {
 
 const cardEnFonctionDesTagsSelectionner = (recipes) => {
   const filterCustomOptionlist = document.querySelectorAll('.filter__select')
+
   filterCustomOptionlist.forEach((item) => {
     item.addEventListener('click', (e) => {
       const filterCustomOptionItem = document.querySelectorAll(
@@ -100,7 +95,7 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
               const filterIngredient = manageFilter(recipes).filter(
                 (recipe) => {
                   const allIngredient = recipe.ingredients.map((el) => {
-                    // console.log('el : ' + el.ingredient)
+                    console.log('el : ' + el.ingredient)
                     return el.ingredient
                   })
 
@@ -108,6 +103,52 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
                     allIngredient.filter((item) => {
                       // console.log(item.toLowerCase().includes(value))
 
+                      return item.toLowerCase().includes(current)
+                    }).length > 0
+                  )
+                }
+              )
+
+              const filterAppliance = manageFilter(recipes).filter((recipe) => {
+                return recipe.appliance.toLowerCase().includes(current)
+              })
+
+              const filterUstensils = manageFilter(recipes).filter((recipe) => {
+                return recipe.ustensils.includes(current)
+              })
+
+              createRecipes(
+                filterIngredient.length > 0
+                  ? filterIngredient
+                  : filterAppliance.length > 0
+                  ? filterAppliance
+                  : filterUstensils.length > 0
+                  ? filterUstensils
+                  : recipes
+              )
+            }
+          }
+        })
+      }
+    })
+    item.addEventListener('keyup', (e) => {
+      const filterCustomOptionItem = document.querySelectorAll(
+        '.filter__custom-option'
+      )
+      for (const curr of filterCustomOptionItem) {
+        curr.addEventListener('click', (e) => {
+          if (listTags.includes(e.target.textContent)) {
+            for (let current of listTags) {
+              document.querySelector('.recipes').textContent = ''
+
+              const filterIngredient = manageFilter(recipes).filter(
+                (recipe) => {
+                  const allIngredient = recipe.ingredients.map((el) => {
+                    return el.ingredient
+                  })
+
+                  return (
+                    allIngredient.filter((item) => {
                       return item.toLowerCase().includes(current)
                     }).length > 0
                   )
@@ -178,7 +219,7 @@ const rechercheEnFonctionDesTags = (recipes, e) => {
       tag.add(
         recipes.filter((recipe) => {
           const allIngredient = recipe.ingredients.map((el) => {
-            // console.log('el : ' + el.ingredient)
+            console.log('el : ' + el.ingredient)
             return el.ingredient
           })
 
@@ -219,9 +260,6 @@ const rechercheEnFonctionDesTags = (recipes, e) => {
 // init
 const initPage = async () => {
   try {
-    // liste des recettes
-    // const recipes = await fetchRecipes()
-
     // Créer le DOM
     createRecipes(recipes)
     searchInput.addEventListener('keyup', (e) => {
