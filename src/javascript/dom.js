@@ -330,8 +330,6 @@ const dropdown = (recipe) => {
 const displayTag = (value, e) => {
   let tagDom = document.createElement('span')
 
-  let bgColor = value
-
   tagDom.className = `badge tags ${value}`
   tagDom.textContent = e.target.textContent
 
