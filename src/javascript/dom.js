@@ -202,7 +202,7 @@ const ustensilList = (recipes) => {
       filterCustomOptionItem.className = 'filter__custom-option'
       filterCustomOptionItem.textContent = valeur
 
-      // afficher les tags
+      // afficher les tags avec la bonne couleurs
       filterCustomOptionItem.addEventListener('click', (e) => {
         let value = 'bg-danger'
         displayTag(value, e)
