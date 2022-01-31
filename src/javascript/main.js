@@ -14,9 +14,7 @@ const createRecipes = (recipes) => {
 const filterRecipes = (recipes, e) => {
   // écouter l'évenement input
 
-  // console.log(recipes)
   const value = e.target.value.toLowerCase()
-  // console.log(listTags)
 
   if (value.length > 2) {
     document.querySelector('.recipes').textContent = ''
@@ -125,9 +123,6 @@ const cardEnFonctionDesTagsSelectionner = (recipes) => {
           if (listTags.includes(e.target.textContent)) {
             for (let current of listTags) {
               document.querySelector('.recipes').textContent = ''
-              // console.log('curr :', current)
-              // console.log(manageFilter(recipes))
-              // recherche par ingredients
 
               const filterIngredient = manageFilter(recipes).filter(
                 (recipe) => {
@@ -251,9 +246,6 @@ const rechercheEnFonctionDesTags = (recipes, e) => {
 // init
 const initPage = async () => {
   try {
-    // liste des recettes
-    // const recipes = await fetchRecipes()
-
     // Créer le DOM
     createRecipes(recipes)
     searchInput.addEventListener('keyup', (e) => {
@@ -265,11 +257,8 @@ const initPage = async () => {
     })
 
     createDropdown(recipes)
-    // getAllAppliance(recipes)
     filterSearch(recipes)
-    // getAllUstensils(recipes)
 
-    // console.log(displayAllIngredients(recipes))
     cardEnFonctionDesTagsSelectionner(recipes)
   } catch (e) {
     console.log('erreur :', e)

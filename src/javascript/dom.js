@@ -147,12 +147,10 @@ const applianceList = (recipes) => {
     .sort()
 
   const filterCustomMenuList = document.createElement('ul')
-
   filterCustomMenuList.className = 'filter__custom-menu bg-success'
 
   filterSelect.appendChild(filterCustomMenuList)
-  // console.log(listAllAppliance)
-  // console.log(listAllAppliance.length)
+
   if (listAllAppliance.length > 0) {
     for (const valeur of listAllAppliance) {
       // console.log('valeur : ', valeur)
@@ -246,7 +244,7 @@ const dropdown = (recipe) => {
     filterSelect.className = `filter__select ${item.background}`
 
     filterSelect.addEventListener('click', (e) => {
-      // console.log(e)
+      // filterSelect.setAttribute('placeholder', 'item.name')
     })
 
     filterSelect.setAttribute('placeholder', item.name)
@@ -303,7 +301,7 @@ const dropdown = (recipe) => {
           applianceShow = false
           arrow[1].style.transform = 'rotate(0deg)'
         }
-      } else {
+      } else if (item.placeholder === 'Ustensiles') {
         // ustensilShow = false
         if (!ustensilShow) {
           ustensilList(
